@@ -5,6 +5,7 @@ import React, { useState } from 'react';
 import { FcGoogle } from 'react-icons/fc';
 import { RxCross2 } from 'react-icons/rx';
 import { Description, FieldError, Form, Input, Label, } from "@heroui/react";
+import Link from 'next/link';
 
 
 const LoginButtonModal = () => {
@@ -46,7 +47,6 @@ const LoginButtonModal = () => {
                                     Login to continue booking your favorite sports facilities.
                                 </p>
                             </div>
-
 
                             <Form className="w-full space-y-5">
 
@@ -143,11 +143,11 @@ const LoginButtonModal = () => {
 
                                 Don’t have an account?
 
-                                <button
+                                <Link href={'/signup'}
                                     className="ml-2 cursor-pointer font-semibold text-emerald-600 transition hover:text-emerald-700"
                                 >
                                     Create Account
-                                </button>
+                                </Link>
                             </p>
                         </div>
                     </div>
