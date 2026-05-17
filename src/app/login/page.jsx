@@ -1,8 +1,6 @@
-'use client'
+'use client';
 
-import { authClient } from "@/lib/auth-client";
 import {
-    Button,
     Description,
     FieldError,
     Form,
@@ -11,40 +9,44 @@ import {
     TextField
 } from "@heroui/react";
 
-import Link from "next/link";
-import { redirect } from "next/navigation";
-import toast from "react-hot-toast";
-import { FcGoogle } from "react-icons/fc";
+import { authClient } from '@/lib/auth-client';
+import Link from 'next/link';
+import { redirect } from 'next/navigation';
+import React from 'react';
+import toast from 'react-hot-toast';
+import { FcGoogle } from 'react-icons/fc';
 
-const SignUpPage = () => {
+const LoginPage = () => {
 
     const onSubmit = async (e) => {
+
         e.preventDefault();
+
         const formData = new FormData(e.currentTarget);
+
         const user = Object.fromEntries(formData.entries());
 
-        const { data, error } = await authClient.signUp.email({
-            email: user.email,
-            password: user.password,
-            name: user.name,
-            image: user.image,
-        })
-        // console.log(data, error)
-        if (data) {
-            toast.success(`Welcome ${user.name}! Account created successfully`)
-            redirect('/')
-        }
-        if (error) {
-            toast('Something went Wrong')
-        }
-    }
+        const { data, error } = await authClient.signIn.email({
+            email: user?.email,
+            password: user?.password,
+        });
 
+        if (data) {
+            toast.success(`Welcome Back!`);
+            redirect('/');
+        }
+
+        if (error) {
+            toast.error('Invalid email or password');
+        }
+    };
 
     return (
         <div className="flex min-h-screen items-center justify-center bg-slate-50 px-4 py-12">
 
             <div className="w-full max-w-md">
 
+                {/* Logo */}
                 <div className="mb-8 text-center">
 
                     <Link
@@ -58,42 +60,23 @@ const SignUpPage = () => {
                     </Link>
 
                     <h1 className="mt-6 text-3xl font-semibold text-slate-900">
-                        Create your account
+                        Welcome Back
                     </h1>
 
                     <p className="mt-2 text-sm text-slate-500">
-                        Start booking your favorite sports facilities.
+                        Login to continue booking your favorite sports facilities.
                     </p>
                 </div>
 
-
+                {/* Card */}
                 <div className="rounded-2xl border border-slate-200 bg-white p-8 shadow-sm">
 
                     <Form
                         onSubmit={onSubmit}
-                        className="flex w-full flex-col gap-5">
-                        <TextField
-                            isRequired
-                            name="name"
-                            type="text"
-                            className="w-full"
-                        >
-                            <div className="w-full">
+                        className="flex w-full flex-col gap-5"
+                    >
 
-                                <Label className="mb-2 block text-sm font-medium text-slate-700">
-                                    Full Name
-                                </Label>
-
-                                <Input
-                                    placeholder="John Doe"
-                                    className="w-full"
-                                />
-
-                                <FieldError className="mt-1 text-sm text-red-500" />
-                            </div>
-                        </TextField>
-
-
+                        {/* Email */}
                         <TextField
                             isRequired
                             name="email"
@@ -115,35 +98,7 @@ const SignUpPage = () => {
                             </div>
                         </TextField>
 
-
-                        <TextField
-                            name="image"
-                            type="url"
-                            className="w-full"
-                        >
-                            <div className="w-full">
-
-                                <div className="mb-2 flex items-center justify-between">
-
-                                    <Label className="text-sm font-medium text-slate-700">
-                                        Profile Image
-                                    </Label>
-
-                                    <span className="text-xs text-slate-400">
-                                        Optional
-                                    </span>
-                                </div>
-
-                                <Input
-                                    placeholder="https://example.com/photo.jpg"
-                                    className="w-full"
-                                />
-
-                                <FieldError className="mt-1 text-sm text-red-500" />
-                            </div>
-                        </TextField>
-
-
+                        {/* Password */}
                         <TextField
                             isRequired
                             minLength={8}
@@ -170,16 +125,16 @@ const SignUpPage = () => {
                             </div>
                         </TextField>
 
-
-                        <Button
+                        {/* Login Button */}
+                        <button
                             type="submit"
                             className="mt-2 h-12 w-full rounded-xl bg-emerald-600 text-sm font-medium text-white transition hover:bg-emerald-700"
                         >
-                            Create Account
-                        </Button>
+                            Login
+                        </button>
                     </Form>
 
-
+                    {/* Divider */}
                     <div className="my-6 flex items-center gap-3">
 
                         <div className="h-px flex-1 bg-slate-200"></div>
@@ -191,24 +146,25 @@ const SignUpPage = () => {
                         <div className="h-px flex-1 bg-slate-200"></div>
                     </div>
 
-
+                    {/* Google Login */}
                     <button
-                        className="flex cursor-pointer h-12 w-full items-center justify-center gap-3 rounded-xl border border-slate-300 bg-white text-sm font-medium text-slate-700 transition hover:border-emerald-500 hover:text-emerald-600"
+                        className="flex h-12 w-full items-center justify-center gap-3 rounded-xl border border-slate-300 bg-white text-sm font-medium text-slate-700 transition hover:border-emerald-500 hover:text-emerald-600"
                     >
                         <FcGoogle className="text-xl" />
 
                         Continue with Google
                     </button>
+
                     {/* Footer */}
                     <p className="mt-7 text-center text-sm text-slate-500">
 
-                        Do have an account?
+                        Don’t have an account?
 
                         <Link
-                            href="/login"
+                            href="/signup"
                             className="ml-2 font-medium text-emerald-600 transition hover:text-emerald-700"
                         >
-                            Login
+                            Create Account
                         </Link>
                     </p>
                 </div>
@@ -217,4 +173,4 @@ const SignUpPage = () => {
     );
 };
 
-export default SignUpPage;
+export default LoginPage;

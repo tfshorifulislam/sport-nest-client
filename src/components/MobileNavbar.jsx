@@ -96,18 +96,33 @@ const MobileNavbar = () => {
                 <div className="mt-12 space-y-4">
 
 
-                    <button
-                        className="w-full rounded-full bg-emerald-600 py-3 text-sm font-medium text-white transition hover:bg-emerald-700"
-                    >
-                        Login
-                    </button>
+                    <div className="mt-10 flex flex-col gap-4">
 
+                        <Link
+                            onClick={() => setOpen(false)}
+                            href="/login"
+                            className="w-full"
+                        >
+                            <button
+                                className="w-full rounded-full bg-emerald-600 py-3 text-sm font-medium text-white transition-all duration-200 hover:bg-emerald-700"
+                            >
+                                Login
+                            </button>
+                        </Link>
 
-                    <button
-                        className="w-full rounded-full border border-slate-300 py-3 text-sm font-medium text-slate-700 transition hover:border-emerald-500 hover:text-emerald-600"
-                    >
-                        Sign Up
-                    </button>
+                        <Link
+                            onClick={() => setOpen(false)}
+                            href="/signup"
+                            className="w-full"
+                        >
+                            <button
+                                className="w-full rounded-full border border-slate-300 bg-white py-3 text-sm font-medium text-slate-700 transition-all duration-200 hover:border-emerald-500 hover:bg-emerald-50 hover:text-emerald-600"
+                            >
+                                Sign Up
+                            </button>
+                        </Link>
+
+                    </div>
 
 
                     <div className="flex items-center gap-3 py-1">
