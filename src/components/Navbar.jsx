@@ -3,9 +3,14 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import React from 'react';
-import { Button } from '@heroui/react';
+import { Avatar, Button } from '@heroui/react';
+import { authClient } from '@/lib/auth-client';
 
 const Navbar = () => {
+    const { data: session } = authClient.useSession()
+    // console.log('session', session)
+    const user = session?.user
+    // console.log(user)
 
     const pathname = usePathname();
 
@@ -44,16 +49,24 @@ const Navbar = () => {
                     ))}
                 </ul>
 
-                <Link href={'/login'}>
-                    <Button
-                        radius="full"
-                        className="bg-emerald-600 px-6 text-white transition hover:bg-emerald-700"
-                    >
-                        Login
-                    </Button>
-                </Link>
+                {
+                    user ?
+                        <Avatar className='cursor-pointer'>
+                            < Avatar.Image alt={user.name} src={user.image} />
+                            <Avatar.Fallback>{user?.name?.charAt(0).toUpperCase()}</Avatar.Fallback>
+                        </Avatar>
+                        :
+                        <Link href={'/login'}>
+                            <Button
+                                radius="full"
+                                className="bg-emerald-600 px-6 text-white transition hover:bg-emerald-700"
+                            >
+                                Login
+                            </Button>
+                        </Link>
+                }
             </div>
-        </nav>
+        </nav >
     );
 };
 
