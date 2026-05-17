@@ -4,6 +4,7 @@ import { Button } from '@heroui/react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import React from 'react';
+import LoginButtonModal from './LoginButtonModal';
 
 const Navbar = () => {
 
@@ -33,11 +34,10 @@ const Navbar = () => {
                         <li key={link.path}>
                             <Link
                                 href={link.path}
-                                className={`transition duration-200 ${
-                                    pathname === link.path
-                                        ? 'text-emerald-600 font-semibold'
-                                        : 'text-slate-600 hover:text-emerald-600'
-                                }`}
+                                className={`transition duration-200 ${pathname === link.path
+                                    ? 'text-emerald-600 font-semibold'
+                                    : 'text-slate-600 hover:text-emerald-600'
+                                    }`}
                             >
                                 {link.name}
                             </Link>
@@ -46,12 +46,7 @@ const Navbar = () => {
                 </ul>
 
                 <div>
-                    <Button
-                        radius="full"
-                        className="bg-emerald-600 px-6 text-white transition hover:bg-emerald-700"
-                    >
-                        Login
-                    </Button>
+                    <LoginButtonModal />
                 </div>
             </div>
         </nav>
