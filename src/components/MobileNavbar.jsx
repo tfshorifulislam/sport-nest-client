@@ -20,7 +20,7 @@ const MobileNavbar = () => {
     ];
 
     return (
-        <div className="md:hidden">
+        <div className="md:hidden z-9999">
 
 
             <div className="flex items-center justify-between border-b border-slate-200 bg-white px-5 py-4">
