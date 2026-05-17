@@ -69,8 +69,8 @@ const TopSportsComplexesCities = () => {
 
                                     <FiChevronDown
                                         className={`text-xl text-slate-500 transition duration-300 ${openIndex === index
-                                                ? 'rotate-180'
-                                                : ''
+                                            ? 'rotate-180'
+                                            : ''
                                             }`}
                                     />
                                 </button>
@@ -78,8 +78,8 @@ const TopSportsComplexesCities = () => {
                                 {/* Content */}
                                 <div
                                     className={`transition-all duration-300 ${openIndex === index
-                                            ? 'max-h-40 pb-5'
-                                            : 'max-h-0'
+                                        ? 'max-h-40 pb-5'
+                                        : 'max-h-0'
                                         } overflow-hidden`}
                                 >
                                     <div className="space-y-2 px-5 text-sm text-slate-500">
