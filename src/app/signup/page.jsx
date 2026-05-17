@@ -103,6 +103,12 @@ const SignUpPage = () => {
                             isRequired
                             name="email"
                             type="email"
+                            validate={(value) => {
+                                if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(value)) {
+                                    return "Please enter a valid email address";
+                                }
+                                return null;
+                            }}
                             className="w-full"
                         >
                             <div className="w-full">
@@ -151,10 +157,22 @@ const SignUpPage = () => {
 
                         <TextField
                             isRequired
-                            minLength={8}
                             name="password"
                             type="password"
                             className="w-full"
+                            minLength={6}
+                            validate={(value) => {
+                                if (value.length < 6) {
+                                    return "Password must be at least 6 characters";
+                                }
+                                if (!/[A-Z]/.test(value)) {
+                                    return "Password must contain at least one uppercase letter";
+                                }
+                                if (!/[0-9]/.test(value)) {
+                                    return "Password must contain at least one number";
+                                }
+                                return null;
+                            }}
                         >
                             <div className="w-full">
 
@@ -168,7 +186,7 @@ const SignUpPage = () => {
                                 />
 
                                 <Description className="mt-1 text-xs text-slate-500">
-                                    Minimum 8 characters
+                                    Minimum 6 characters
                                 </Description>
 
                                 <FieldError className="mt-1 text-sm text-red-500" />
