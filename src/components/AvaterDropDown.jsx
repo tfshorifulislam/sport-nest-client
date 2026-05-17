@@ -1,56 +1,92 @@
-import { Avatar, Dropdown, Label } from "@heroui/react";
+import { Avatar, Dropdown } from "@heroui/react";
+import Link from "next/link";
 
 export function AvaterDropDown({ user }) {
+
     return (
-        <Dropdown>
-            <Dropdown.Trigger className="rounded-full">
-                <Avatar className='cursor-pointer'>
-                    < Avatar.Image alt={user.name} src={user.image} />
-                    <Avatar.Fallback>{user?.name?.charAt(0).toUpperCase()}</Avatar.Fallback>
-                </Avatar>
+        <Dropdown placement="bottom-end">
+            <Dropdown.Trigger>
+
+                <button className="outline-none">
+                    <Avatar
+                        size="md"
+                        className="cursor-pointer border border-slate-200 transition hover:opacity-90"
+                    >
+                        <Avatar.Image
+                            alt={user?.name}
+                            src={user?.image}
+                        />
+                        <Avatar.Fallback className="bg-slate-900 text-sm font-semibold text-white">
+                            {user?.name?.charAt(0).toUpperCase()}
+                        </Avatar.Fallback>
+                    </Avatar>
+                </button>
             </Dropdown.Trigger>
-            <Dropdown.Popover>
-                <div className="px-3 pt-3 pb-1">
-                    <div className="flex items-center gap-2">
-                        <Avatar size="sm">
+            <Dropdown.Popover className="w-72 overflow-hidden rounded-2xl border border-slate-200 bg-white p-0 shadow-xl">
+
+                <div className="border-b border-slate-100 px-4 py-4">
+
+                    <div className="flex items-center gap-3">
+
+                        <Avatar
+                            size="lg"
+                            className="border border-slate-200"
+                        >
                             <Avatar.Image
-                                alt="Jane"
-                                src="https://heroui-assets.nyc3.cdn.digitaloceanspaces.com/avatars/orange.jpg"
+                                alt={user?.name}
+                                src={user?.image}
                             />
-                            <Avatar.Fallback delayMs={600}>JD</Avatar.Fallback>
+
+                            <Avatar.Fallback className="bg-slate-900 text-white">
+                                {user?.name?.charAt(0).toUpperCase()}
+                            </Avatar.Fallback>
                         </Avatar>
-                        <div className="flex flex-col gap-0">
-                            <p className="text-sm leading-5 font-medium">Jane Doe</p>
-                            <p className="text-xs leading-none text-muted">jane@example.com</p>
+
+                        <div className="min-w-0">
+
+                            <h3 className="truncate text-sm font-semibold text-slate-900">
+                                {user?.name}
+                            </h3>
+
+                            <p className="truncate text-xs text-slate-500">
+                                {user?.email}
+                            </p>
                         </div>
                     </div>
                 </div>
-                <Dropdown.Menu>
-                    <Dropdown.Item id="dashboard" textValue="Dashboard">
-                        <Label>Dashboard</Label>
-                    </Dropdown.Item>
-                    <Dropdown.Item id="profile" textValue="Profile">
-                        <Label>Profile</Label>
-                    </Dropdown.Item>
-                    <Dropdown.Item id="settings" textValue="Settings">
-                        <div className="flex w-full items-center justify-between gap-2">
-                            <Label>Settings</Label>
 
-                        </div>
-                    </Dropdown.Item>
-                    <Dropdown.Item id="new-project" textValue="New project">
-                        <div className="flex w-full items-center justify-between gap-2">
-                            <Label>Create Team</Label>
+                <div className="p-2">
 
-                        </div>
-                    </Dropdown.Item>
-                    <Dropdown.Item id="logout" textValue="Logout" variant="danger">
-                        <div className="flex w-full items-center justify-between gap-2">
-                            <Label>Log Out</Label>
+                    <Link
+                        href="/mybookings"
+                        className="flex items-center rounded-xl px-4 py-3 text-sm font-medium text-slate-700 transition hover:bg-slate-100"
+                    >
+                        My Bookings
+                    </Link>
 
-                        </div>
-                    </Dropdown.Item>
-                </Dropdown.Menu>
+                    <Link
+                        href="/add-facility"
+                        className="flex items-center rounded-xl px-4 py-3 text-sm font-medium text-slate-700 transition hover:bg-slate-100"
+                    >
+                        Add Facility
+                    </Link>
+
+                    <Link
+                        href="/managefacili"
+                        className="flex items-center rounded-xl px-4 py-3 text-sm font-medium text-slate-700 transition hover:bg-slate-100"
+                    >
+                        Manage Facilities
+                    </Link>
+
+                    <div className="my-2 h-px bg-slate-100"></div>
+
+                    <button
+                        className="flex w-full cursor-pointer items-center rounded-xl px-4 py-3 text-sm font-medium text-red-500 transition hover:bg-red-50"
+                    >
+                        Log Out
+                    </button>
+
+                </div>
             </Dropdown.Popover>
         </Dropdown>
     );
