@@ -1,5 +1,6 @@
 'use client'
 
+import { authClient } from "@/lib/auth-client";
 import {
     Button,
     Description,
@@ -11,9 +12,33 @@ import {
 } from "@heroui/react";
 
 import Link from "next/link";
+import { redirect } from "next/navigation";
+import toast from "react-hot-toast";
 import { FcGoogle } from "react-icons/fc";
 
 const SignUpPage = () => {
+
+    const onSubmit = async (e) => {
+        e.preventDefault();
+        const formData = new FormData(e.currentTarget);
+        const user = Object.fromEntries(formData.entries());
+
+        const { data, error } = await authClient.signUp.email({
+            email: user.email,
+            password: user.password,
+            name: user.name,
+            image: user.image,
+        })
+        // console.log(data, error)
+        if (data) {
+            toast.success(`Welcome ${user.name}! Account created successfully`)
+            redirect('/')
+        }
+        if (error) {
+            toast('Something went Wrong')
+        }
+    }
+
 
     return (
         <div className="flex min-h-screen items-center justify-center bg-slate-50 px-4 py-12">
@@ -44,9 +69,9 @@ const SignUpPage = () => {
 
                 <div className="rounded-2xl border border-slate-200 bg-white p-8 shadow-sm">
 
-                    <Form className="flex w-full flex-col gap-5">
-
-
+                    <Form
+                        onSubmit={onSubmit}
+                        className="flex w-full flex-col gap-5">
                         <TextField
                             isRequired
                             name="name"
