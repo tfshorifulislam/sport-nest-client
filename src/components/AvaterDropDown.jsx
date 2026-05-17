@@ -1,8 +1,13 @@
 'use client'
+import { authClient } from "@/lib/auth-client";
 import { Avatar, Button, Dropdown } from "@heroui/react";
 import Link from "next/link";
 
 export function AvaterDropDown({ user }) {
+
+    const handleSignOut = async () => {
+        await authClient.signOut();
+    }
 
     return (
         <Dropdown placement="bottom-end">
@@ -83,6 +88,7 @@ export function AvaterDropDown({ user }) {
                     <div className="my-2 h-px bg-slate-100"></div>
 
                     <p
+                        onClick={handleSignOut}
                         className="flex w-full cursor-pointer items-center rounded-xl px-4 py-3 text-sm font-medium text-red-500 transition hover:bg-red-50"
                     >
                         Log Out
