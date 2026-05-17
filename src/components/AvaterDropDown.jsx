@@ -1,4 +1,5 @@
-import { Avatar, Dropdown } from "@heroui/react";
+'use client'
+import { Avatar, Button, Dropdown } from "@heroui/react";
 import Link from "next/link";
 
 export function AvaterDropDown({ user }) {
@@ -7,7 +8,7 @@ export function AvaterDropDown({ user }) {
         <Dropdown placement="bottom-end">
             <Dropdown.Trigger>
 
-                <button className="outline-none">
+                <div className="outline-none">
                     <Avatar
                         size="md"
                         className="cursor-pointer border border-slate-200 transition hover:opacity-90"
@@ -20,7 +21,7 @@ export function AvaterDropDown({ user }) {
                             {user?.name?.charAt(0).toUpperCase()}
                         </Avatar.Fallback>
                     </Avatar>
-                </button>
+                </div>
             </Dropdown.Trigger>
             <Dropdown.Popover className="w-72 overflow-hidden rounded-2xl border border-slate-200 bg-white p-0 shadow-xl">
 
@@ -80,11 +81,11 @@ export function AvaterDropDown({ user }) {
 
                     <div className="my-2 h-px bg-slate-100"></div>
 
-                    <button
+                    <p
                         className="flex w-full cursor-pointer items-center rounded-xl px-4 py-3 text-sm font-medium text-red-500 transition hover:bg-red-50"
                     >
                         Log Out
-                    </button>
+                    </p>
 
                 </div>
             </Dropdown.Popover>

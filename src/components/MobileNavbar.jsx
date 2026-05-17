@@ -38,7 +38,7 @@ const MobileNavbar = () => {
                     <span className="text-emerald-600">Sport</span>Nest
                 </Link>
 
-                <button
+                <div
                     onClick={() => setOpen(!open)}
                     className="text-3xl text-slate-700"
                 >
@@ -48,7 +48,7 @@ const MobileNavbar = () => {
                                 ? <RxCross2 />
                                 : <HiOutlineMenuAlt4 />
                     }
-                </button>
+                </div>
             </div>
 
 
