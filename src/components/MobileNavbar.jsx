@@ -1,8 +1,10 @@
 'use client';
 
+import { Separator } from '@heroui/react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import React, { useState } from 'react';
+import { FcGoogle } from 'react-icons/fc';
 import { HiOutlineMenuAlt4 } from 'react-icons/hi';
 import { RxCross2 } from 'react-icons/rx';
 
@@ -20,14 +22,11 @@ const MobileNavbar = () => {
     ];
 
     return (
-        <div className="md:hidden z-9999">
-
-
+        <div className="md:hidden">
             <div className="flex items-center justify-between border-b border-slate-200 bg-white px-5 py-4">
-
                 <Link
                     href="/"
-                    className="text-xl font-bold text-slate-800"
+                    className="text-2xl font-bold tracking-tight text-slate-800"
                 >
                     <span className="text-emerald-600">Sport</span>Nest
                 </Link>
@@ -45,21 +44,44 @@ const MobileNavbar = () => {
             </div>
 
 
+            {
+                open && (
+                    <div
+                        onClick={() => setOpen(false)}
+                        className="fixed inset-0 z-40 bg-black/20"
+                    />
+                )
+            }
+
+
             <div
-                className={`absolute left-0 top-[73px] w-full bg-white px-5 py-6 shadow-lg transition-all duration-300 ${open
-                    ? 'visible opacity-100'
-                    : 'invisible opacity-0'
+                className={`fixed right-0 top-0 z-50 h-screen w-[78%] bg-white px-6 py-8 transition-transform duration-300 ${open
+                    ? 'translate-x-0'
+                    : 'translate-x-full'
                     }`}
             >
-                <ul className="space-y-5 text-base font-medium">
+
+
+                <div className="mb-10 flex justify-end">
+                    <button
+                        onClick={() => setOpen(false)}
+                        className="text-3xl text-slate-700"
+                    >
+                        <RxCross2 />
+                    </button>
+                </div>
+
+
+                <ul className="space-y-6">
+
                     {
                         navLinks.map((link) => (
                             <li key={link.path}>
                                 <Link
                                     href={link.path}
                                     onClick={() => setOpen(false)}
-                                    className={`block transition ${pathname === link.path
-                                        ? 'text-emerald-600 font-semibold'
+                                    className={`text-base font-medium transition ${pathname === link.path
+                                        ? 'text-emerald-600'
                                         : 'text-slate-700 hover:text-emerald-600'
                                         }`}
                                 >
@@ -69,6 +91,46 @@ const MobileNavbar = () => {
                         ))
                     }
                 </ul>
+
+
+                <div className="mt-12 space-y-4">
+
+
+                    <button
+                        className="w-full rounded-full bg-emerald-600 py-3 text-sm font-medium text-white transition hover:bg-emerald-700"
+                    >
+                        Login
+                    </button>
+
+
+                    <button
+                        className="w-full rounded-full border border-slate-300 py-3 text-sm font-medium text-slate-700 transition hover:border-emerald-500 hover:text-emerald-600"
+                    >
+                        Sign Up
+                    </button>
+
+
+                    <div className="flex items-center gap-3 py-1">
+                        <div className="h-px flex-1 bg-slate-200"></div>
+
+                        <span className="text-xs font-medium uppercase tracking-wider text-slate-400">
+                            or
+                        </span>
+
+                        <div className="h-px flex-1 bg-slate-200"></div>
+                    </div>
+
+
+                    <button
+                        className="flex w-full items-center justify-center gap-3 rounded-full border border-slate-300 py-3 text-sm font-medium text-slate-700 transition hover:border-emerald-500 hover:text-emerald-600"
+                    >
+                        <FcGoogle className="text-xl" />
+
+                        <span>
+                            Continue with Google
+                        </span>
+                    </button>
+                </div>
             </div>
         </div>
     );
