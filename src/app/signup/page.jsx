@@ -174,18 +174,6 @@ const SignUpPage = () => {
 
                         Continue with Google
                     </button>
-
-                    <p className="mt-6 text-center text-sm text-slate-500">
-
-                        Already have an account?
-
-                        <Link
-                            href="/login"
-                            className="ml-1 font-medium text-emerald-600 transition hover:text-emerald-700"
-                        >
-                            Login
-                        </Link>
-                    </p>
                 </div>
             </div>
         </div>

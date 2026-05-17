@@ -143,7 +143,9 @@ const LoginButtonModal = () => {
 
                                 Don’t have an account?
 
-                                <Link href={'/signup'}
+                                <Link
+                                    href="/signup"
+                                    onClick={() => setOpen(false)}
                                     className="ml-2 cursor-pointer font-semibold text-emerald-600 transition hover:text-emerald-700"
                                 >
                                     Create Account
