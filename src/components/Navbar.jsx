@@ -1,10 +1,9 @@
 'use client';
 
-import { Button } from '@heroui/react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import React from 'react';
-import LoginButtonModal from './LoginButtonModal';
+import { Button } from '@heroui/react';
 
 const Navbar = () => {
 
@@ -45,9 +44,14 @@ const Navbar = () => {
                     ))}
                 </ul>
 
-                <div>
-                    <LoginButtonModal />
-                </div>
+                <Link href={'/login'}>
+                    <Button
+                        radius="full"
+                        className="bg-emerald-600 px-6 text-white transition hover:bg-emerald-700"
+                    >
+                        Login
+                    </Button>
+                </Link>
             </div>
         </nav>
     );
