@@ -1,5 +1,6 @@
 'use client';
 
+import { authClient } from '@/lib/auth-client';
 import { Separator } from '@heroui/react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -7,8 +8,14 @@ import React, { useState } from 'react';
 import { FcGoogle } from 'react-icons/fc';
 import { HiOutlineMenuAlt4 } from 'react-icons/hi';
 import { RxCross2 } from 'react-icons/rx';
+import { AvaterDropDown } from './AvaterDropDown';
 
 const MobileNavbar = () => {
+
+    const { data: session } = authClient.useSession()
+    // console.log('session', session)
+    const user = session?.user
+    // console.log(user)
 
     const [open, setOpen] = useState(false);
     const pathname = usePathname();
@@ -36,9 +43,10 @@ const MobileNavbar = () => {
                     className="text-3xl text-slate-700"
                 >
                     {
-                        open
-                            ? <RxCross2 />
-                            : <HiOutlineMenuAlt4 />
+                        user ? <AvaterDropDown user={user} /> :
+                            open
+                                ? <RxCross2 />
+                                : <HiOutlineMenuAlt4 />
                     }
                 </button>
             </div>

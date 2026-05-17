@@ -3,8 +3,9 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import React from 'react';
-import { Avatar, Button } from '@heroui/react';
+import { Button } from '@heroui/react';
 import { authClient } from '@/lib/auth-client';
+import { AvaterDropDown } from './AvaterDropDown';
 
 const Navbar = () => {
     const { data: session } = authClient.useSession()
@@ -51,10 +52,7 @@ const Navbar = () => {
 
                 {
                     user ?
-                        <Avatar className='cursor-pointer'>
-                            < Avatar.Image alt={user.name} src={user.image} />
-                            <Avatar.Fallback>{user?.name?.charAt(0).toUpperCase()}</Avatar.Fallback>
-                        </Avatar>
+                        <AvaterDropDown user={user} />
                         :
                         <Link href={'/login'}>
                             <Button
