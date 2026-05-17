@@ -6,9 +6,30 @@ import { FcGoogle } from 'react-icons/fc';
 import { RxCross2 } from 'react-icons/rx';
 import { Description, FieldError, Form, Input, Label, } from "@heroui/react";
 import Link from 'next/link';
+import { authClient } from '@/lib/auth-client';
+import toast from 'react-hot-toast';
 
 
 const LoginButtonModal = () => {
+
+    const onSubmit = async (e) => {
+        e.preventDefault();
+        const formData = new FormData(e.currentTarget);
+        const user = Object.fromEntries(formData.entries());
+
+        const { data, error } = await authClient.signIn.email({
+            email: user?.email,
+            password: user?.password,
+        })
+        // console.log(data, error)
+        if (data) {
+            toast.success(`Welcome Back ${user.name}!`)
+            redirect('/')
+        }
+        if (error) {
+            toast('Something went Wrong')
+        }
+    }
 
     const [open, setOpen] = useState(false);
 
@@ -48,7 +69,9 @@ const LoginButtonModal = () => {
                                 </p>
                             </div>
 
-                            <Form className="w-full space-y-5">
+                            <Form
+                                onSubmit={onSubmit}
+                                className="w-full space-y-5">
 
                                 {/* Email Field */}
                                 <TextField
