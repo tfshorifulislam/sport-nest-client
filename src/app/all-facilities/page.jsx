@@ -178,7 +178,7 @@ const AllFacilities = async () => {
                                     <div className="mt-auto pt-6">
 
                                         <Link
-                                            href={`/facilities/${facility._id}`}
+                                            href={`/all-facilities/${facility._id}`}
                                             className="flex h-12 w-full items-center justify-center rounded-2xl bg-emerald-600 text-sm font-medium text-white transition-all duration-200 hover:bg-emerald-700"
                                         >
                                             View Details
