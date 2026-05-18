@@ -6,6 +6,7 @@ import React from 'react';
 import { Button } from '@heroui/react';
 import { authClient } from '@/lib/auth-client';
 import { AvaterDropDown } from './AvaterDropDown';
+import MobileNavbar from './MobileNavbar';
 
 const Navbar = () => {
     const { data: session } = authClient.useSession()
@@ -24,7 +25,7 @@ const Navbar = () => {
     ];
 
     return (
-        <nav className="w-full hidden md:block">
+        <nav className="w-full">
             <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
 
                 <Link
@@ -54,14 +55,18 @@ const Navbar = () => {
                     user ?
                         <AvaterDropDown user={user} />
                         :
-                        <Link href={'/login'}>
-                            <Button
-                                radius="full"
-                                className="bg-emerald-600 px-6 text-white transition hover:bg-emerald-700"
-                            >
-                                Login
-                            </Button>
-                        </Link>
+                        <div>
+                            <Link className='hidden md:block'
+                                href={'/login'}>
+                                <Button
+                                    radius="full"
+                                    className="bg-emerald-600 px-6 text-white transition hover:bg-emerald-700"
+                                >
+                                    Login
+                                </Button>
+                            </Link>
+                            <MobileNavbar className='flex md:hidden' />
+                        </div>
                 }
             </div>
         </nav >

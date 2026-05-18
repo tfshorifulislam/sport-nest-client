@@ -1,7 +1,6 @@
 'use client';
 
 import { authClient } from '@/lib/auth-client';
-import { Separator } from '@heroui/react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import React, { useState } from 'react';
@@ -30,14 +29,7 @@ const MobileNavbar = () => {
 
     return (
         <div className="md:hidden">
-            <div className="flex items-center justify-between border-b border-slate-200 bg-white px-5 py-4">
-                <Link
-                    href="/"
-                    className="text-2xl font-bold tracking-tight text-slate-800"
-                >
-                    <span className="text-emerald-600">Sport</span>Nest
-                </Link>
-
+            <div className="flex items-center justify-between px-5 py-4">
                 <div
                     onClick={() => setOpen(!open)}
                     className="text-3xl text-slate-700"
@@ -131,28 +123,6 @@ const MobileNavbar = () => {
                         </Link>
 
                     </div>
-
-
-                    <div className="flex items-center gap-3 py-1">
-                        <div className="h-px flex-1 bg-slate-200"></div>
-
-                        <span className="text-xs font-medium uppercase tracking-wider text-slate-400">
-                            or
-                        </span>
-
-                        <div className="h-px flex-1 bg-slate-200"></div>
-                    </div>
-
-
-                    <button
-                        className="flex w-full items-center justify-center gap-3 rounded-full border border-slate-300 py-3 text-sm font-medium text-slate-700 transition hover:border-emerald-500 hover:text-emerald-600"
-                    >
-                        <FcGoogle className="text-xl" />
-
-                        <span>
-                            Continue with Google
-                        </span>
-                    </button>
                 </div>
             </div>
         </div>
