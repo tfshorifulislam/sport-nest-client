@@ -31,7 +31,7 @@ const DetailsPage = async ({ params }) => {
                
                 <div className="absolute bottom-0 left-0 w-full">
 
-                    <div className="mx-auto max-w-7xl px-4 pb-10 sm:px-6 lg:px-8">
+                    <div className="mx-auto max-w-7xl px-4 mb-8 pb-10 sm:px-6 lg:px-8">
 
                         <div className="flex flex-wrap items-center gap-3">
 
@@ -52,6 +52,7 @@ const DetailsPage = async ({ params }) => {
                             {data?.location}
                         </p>
                     </div>
+
                 </div>
             </div>
 
