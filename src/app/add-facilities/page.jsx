@@ -12,8 +12,15 @@ import {
     TextArea,
     Description
 } from "@heroui/react";
+import { authClient } from '@/lib/auth-client';
 
 const AddFacilitiesPage = () => {
+
+    const { data: session } = authClient.useSession()
+    // console.log('session', session)
+    const user = session?.user
+    console.log(user)
+
     const [slots, setSlots] = useState([]);
 
     const onSubmit = async (e) => {
@@ -280,12 +287,12 @@ const AddFacilitiesPage = () => {
 
                         {/* Owner Email */}
                         <div className="md:col-span-2">
-
                             <TextField
                                 isRequired
-                                name="ownerEmail"
+                                name="email"
                                 type="email"
                                 className="w-full"
+                                defaultValue={user?.email}
                             >
                                 <div className="w-full">
 
@@ -294,8 +301,9 @@ const AddFacilitiesPage = () => {
                                     </Label>
 
                                     <Input
-                                        placeholder="owner@example.com"
-                                        className="w-full"
+                                        value={user?.email}
+                                        readOnly
+                                        className="w-full cursor-not-allowed bg-slate-100"
                                     />
 
                                     <FieldError className="mt-1 text-sm text-red-500" />
@@ -332,14 +340,14 @@ const AddFacilitiesPage = () => {
 
                             <button
                                 type="submit"
-                                className="flex-1 rounded-xl bg-emerald-600 py-3 text-sm font-medium text-white transition hover:bg-emerald-700"
+                                className="flex-1 cursor-pointer rounded-xl bg-emerald-600 py-3 text-sm font-medium text-white transition hover:bg-emerald-700"
                             >
                                 Add Facility
                             </button>
 
                             <button
                                 type="reset"
-                                className="flex-1 rounded-xl border border-slate-300 bg-white py-3 text-sm font-medium text-slate-700 transition hover:border-emerald-500 hover:text-emerald-600"
+                                className="flex-1 cursor-pointer rounded-xl border border-slate-300 bg-white py-3 text-sm font-medium text-slate-700 transition hover:border-emerald-500 hover:text-emerald-600"
                             >
                                 Reset Form
                             </button>
