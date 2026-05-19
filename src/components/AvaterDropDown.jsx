@@ -3,15 +3,19 @@
 import { authClient } from "@/lib/auth-client";
 import { Avatar, Dropdown } from "@heroui/react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 export function AvaterDropDown({ user }) {
+    const router = useRouter();
 
     const [open, setOpen] = useState(false);
 
     const handleSignOut = async () => {
         await authClient.signOut();
         setOpen(false);
+        router.refresh();
+        router.push('/')
     };
 
     return (
