@@ -32,7 +32,7 @@ const SignUpPage = () => {
         // console.log(data, error)
         if (data) {
             toast.success(`Welcome ${user.name}! Account created successfully`)
-            redirect('/')
+            redirect('/login')
         }
         if (error) {
             toast('Something went Wrong')

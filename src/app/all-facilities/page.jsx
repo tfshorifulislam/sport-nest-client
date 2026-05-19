@@ -2,9 +2,14 @@ import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { FiSearch } from 'react-icons/fi';
+import { auth } from '@/lib/auth';
+import { headers } from 'next/headers';
 
 const AllFacilities = async () => {
-
+    const session = await auth.api.getSession({
+        headers: await headers()
+    })
+    const user = session
     const res = await fetch('http://localhost:5000/sports', {
         cache: 'no-store',
     });
@@ -178,7 +183,7 @@ const AllFacilities = async () => {
                                     <div className="mt-auto pt-6">
 
                                         <Link
-                                            href={`/all-facilities/${facility._id}`}
+                                            href={user ? `/all-facilities/${facility._id}` : `/login`}
                                             className="flex h-12 w-full items-center justify-center rounded-2xl bg-emerald-600 text-sm font-medium text-white transition-all duration-200 hover:bg-emerald-700"
                                         >
                                             View Details

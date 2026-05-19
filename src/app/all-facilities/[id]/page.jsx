@@ -13,6 +13,8 @@ const DetailsPage = async ({ params }) => {
         headers: await headers()
     })
 
+    console.log('token', userToken.token)
+
     const res = await fetch(`http://localhost:5000/sports/${id}`, {
         headers: {
             authorization: `Bearer ${userToken.token}`
@@ -20,19 +22,28 @@ const DetailsPage = async ({ params }) => {
     });
 
     const data = await res.json();
+    console.log(data)
 
     return (
         <section className="min-h-screen bg-slate-50 pb-20">
 
             <div className="relative h-[350px] w-full overflow-hidden sm:h-[500px] lg:h-[620px]">
 
-                <Image
-                    src={data?.image}
-                    alt={data?.name}
-                    fill
-                    priority
-                    className="object-cover"
-                />
+                {
+                    data?.image ? (
+                        <Image
+                            src={data.image}
+                            alt={data?.name || 'Facility Image'}
+                            fill
+                            priority
+                            className="object-cover"
+                        />
+                    ) : (
+                        <div className="flex h-full w-full items-center justify-center bg-slate-200 text-slate-500">
+                            No Image Available
+                        </div>
+                    )
+                }
 
 
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-black/10" />
