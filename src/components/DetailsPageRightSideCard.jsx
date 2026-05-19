@@ -7,22 +7,68 @@ import { authClient } from '@/lib/auth-client';
 
 
 const DetailsPageRightSideCard = ({ data }) => {
+
     const router = useRouter();
-
-    const handleBooking = async () => {
-
-        const { data: session } = await authClient.getSession();
-
-        if (!session) {
-            router.push('/login');
-            return;
-        }
-        router.push('/BookingFacilities');
-    };
-
 
     const [hours, setHours] = useState(1);
     const totalPrice = Number(data?.pricePerHour) * hours;
+
+    const { data: session } = authClient.useSession();
+    const user = session?.user;
+
+
+    const handleBooking = async (e) => {
+        e.preventDefault();
+
+        // login check
+        if (!user) {
+            router.push('/login');
+            return;
+        }
+
+        // form data
+        const bookingFormData = new FormData(e.currentTarget);
+
+        const bookingInfo = Object.fromEntries(
+            bookingFormData.entries()
+        );
+
+        // final booking object
+        const booking = {
+            userId: user?.id,
+            userName: user?.name,
+            userEmail: user?.email,
+            userImage: user?.image,
+
+            facilityId: data?._id,
+            facilityName: data?.name,
+            facilityType: data?.type,
+            facilityImage: data?.image,
+            facilityLocation: data?.location,
+
+            bookingDate: bookingInfo?.bookingDate,
+            timeSlot: bookingInfo?.timeSlot,
+            hours: Number(bookingInfo?.hours),
+
+            pricePerHour: Number(data?.pricePerHour),
+            totalPrice: totalPrice,
+
+            // createdAt: new Date(),
+        };
+
+        const res = await fetch(`http://localhost:5000/bookings`, {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(booking)
+        })
+        const insertBokingData = await res.json()
+
+        console.log('data', insertBokingData);
+    };
+
+
 
     return (
         <div className="lg:sticky lg:top-8 lg:h-fit">
@@ -38,7 +84,7 @@ const DetailsPageRightSideCard = ({ data }) => {
                 </p>
 
                 {/* FORM */}
-                <form className="mt-8 space-y-5">
+                <form onSubmit={handleBooking} className="mt-8 space-y-5">
 
                     {/* NAME */}
                     <div>
@@ -49,6 +95,8 @@ const DetailsPageRightSideCard = ({ data }) => {
 
                         <input
                             type="text"
+                            name="name"
+                            required
                             placeholder="Enter your name"
                             className="h-14 w-full rounded-2xl border border-slate-200 bg-slate-50 px-5 text-sm outline-none transition focus:border-emerald-500 focus:bg-white"
                         />
@@ -63,6 +111,8 @@ const DetailsPageRightSideCard = ({ data }) => {
 
                         <input
                             type="date"
+                            name="bookingDate"
+                            required
                             className="h-14 w-full rounded-2xl border border-slate-200 bg-slate-50 px-5 text-sm outline-none transition focus:border-emerald-500 focus:bg-white"
                         />
                     </div>
@@ -75,13 +125,23 @@ const DetailsPageRightSideCard = ({ data }) => {
                         </label>
 
                         <select
+                            name="timeSlot"
+                            required
+                            defaultValue=""
                             className="h-14 w-full rounded-2xl border border-slate-200 bg-slate-50 px-5 text-sm outline-none transition focus:border-emerald-500 focus:bg-white"
                         >
+
+                            <option value="" disabled>
+                                Select Time Slot
+                            </option>
 
                             {
                                 data?.availableTimeSlots?.map((slot, index) => (
 
-                                    <option key={index}>
+                                    <option
+                                        key={index}
+                                        value={slot}
+                                    >
                                         {slot}
                                     </option>
                                 ))
@@ -98,6 +158,8 @@ const DetailsPageRightSideCard = ({ data }) => {
 
                         <input
                             type="number"
+                            name="hours"
+                            required
                             min="1"
                             max="8"
                             defaultValue={hours}
@@ -134,8 +196,8 @@ const DetailsPageRightSideCard = ({ data }) => {
 
                     {/* BUTTON */}
                     <button
-                        onClick={handleBooking}
-                        className="flex h-14 w-full items-center justify-center rounded-2xl bg-emerald-600 text-sm font-semibold text-white transition hover:bg-emerald-700"
+                        type="submit"
+                        className="flex h-14 w-full cursor-pointer items-center justify-center rounded-2xl bg-emerald-600 text-sm font-semibold text-white transition hover:bg-emerald-700"
                     >
                         Confirm Booking
                     </button>
