@@ -1,20 +1,25 @@
 'use client'
+
 import { authClient } from '@/lib/auth-client';
 import Image from 'next/image';
-
 import Link from 'next/link';
 import React from 'react';
 
 const FetchingAllCard = ({ facility }) => {
-    const { data: session } = authClient.useSession()
-    // console.log('session', session)
-    const user = session?.user
+
+    const { data: session, isPending } = authClient.useSession();
+
+    if (isPending) {
+        return null;
+    }
+
+    const user = session?.user;
+
     return (
-        <div
-            className="group flex h-full flex-col overflow-hidden rounded-[28px] border border-slate-200 bg-white transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
-        >
 
+        <div className="flex h-full flex-col overflow-hidden rounded-[28px] border border-slate-200 bg-white transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
 
+            {/* IMAGE */}
             <div className="relative h-60 overflow-hidden">
 
                 <Image
@@ -24,14 +29,11 @@ const FetchingAllCard = ({ facility }) => {
                     className="object-cover transition duration-700 group-hover:scale-105"
                 />
 
-
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/10 to-transparent" />
-
 
                 <div className="absolute left-4 top-4 rounded-full bg-white/90 px-3 py-1 text-xs font-semibold text-emerald-700 shadow-sm backdrop-blur">
                     {facility.type}
                 </div>
-
 
                 <div className="absolute bottom-4 right-4 rounded-2xl bg-white/90 px-4 py-2 backdrop-blur">
 
@@ -45,14 +47,12 @@ const FetchingAllCard = ({ facility }) => {
                 </div>
             </div>
 
-
+            {/* CONTENT */}
             <div className="flex flex-1 flex-col p-5">
-
 
                 <h2 className="line-clamp-1 text-xl font-semibold text-slate-800 transition group-hover:text-emerald-600">
                     {facility.name}
                 </h2>
-
 
                 <div className="mt-3 flex items-start gap-2">
 
@@ -62,7 +62,6 @@ const FetchingAllCard = ({ facility }) => {
                         {facility.location}
                     </p>
                 </div>
-
 
                 <div className="mt-6 flex items-center justify-between rounded-2xl bg-slate-50 px-4 py-3">
 
@@ -89,15 +88,15 @@ const FetchingAllCard = ({ facility }) => {
                     </div>
                 </div>
 
-                <button className="mt-auto pt-6">
+                <div className="mt-auto pt-6">
 
                     <Link
-                        href={user ? `/all-facilities/${facility._id}` : `/login`}
+                        href={user ? `/all-facilities/${facility._id}` : '/login'}
                         className="flex h-12 w-full items-center justify-center rounded-2xl bg-emerald-600 text-sm font-medium text-white transition-all duration-200 hover:bg-emerald-700"
                     >
                         Book Now
                     </Link>
-                </button>
+                </div>
             </div>
         </div>
     );

@@ -1,5 +1,7 @@
+
 import Image from 'next/image';
 import React from 'react';
+import { ManageFacilitieisUpdate } from './ManageFacilitiesUpdate';
 
 const ManageFacilitiesCards = ({ facility }) => {
 
@@ -100,10 +102,7 @@ const ManageFacilitiesCards = ({ facility }) => {
                 {/* BUTTONS */}
                 <div className="mt-auto flex items-center gap-3 pt-8">
 
-                    <button className="flex-1 cursor-pointer rounded-2xl bg-emerald-500 px-5 py-3 text-sm font-semibold text-white transition hover:bg-emerald-600">
-
-                        Update
-                    </button>
+                    <ManageFacilitieisUpdate facility={facility} />
 
                     <button className="flex-1 cursor-pointer rounded-2xl border border-red-200 bg-red-50 px-5 py-3 text-sm font-semibold text-red-500 transition hover:bg-red-500 hover:text-white">
 

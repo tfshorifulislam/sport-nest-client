@@ -66,17 +66,6 @@ const ManagesFacilities = async () => {
                                 {myBookingsListFacilities?.length}
                             </h3>
                         </div>
-
-                        <div className="hidden rounded-2xl border border-slate-200 bg-white px-6 py-4 shadow-sm sm:block">
-
-                            <p className="text-xs font-medium uppercase tracking-[0.15em] text-slate-400">
-                                Status
-                            </p>
-
-                            <h3 className="mt-2 text-lg font-semibold text-emerald-600">
-                                Active
-                            </h3>
-                        </div>
                     </div>
                 </div>
 
