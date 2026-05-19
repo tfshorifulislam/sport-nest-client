@@ -19,7 +19,7 @@ export function MyBookingsDeleteAllert({ bookingCard }) {
 
     const onSubmit = async () => {
 
-        const { data } = await authClient.token();
+        // const { data } = await authClient.token();
 
         try {
 
@@ -28,7 +28,7 @@ export function MyBookingsDeleteAllert({ bookingCard }) {
                     method: "DELETE",
                     headers: {
                         "content-type": "application/json",
-                        authorization: `Bearer ${data?.token}`
+                        // authorization: `Bearer ${data?.token}`
                     }
                 }
             );

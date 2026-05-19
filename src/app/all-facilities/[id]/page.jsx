@@ -9,13 +9,13 @@ const DetailsPage = async ({ params }) => {
 
     const { id } = await params;
 
-    const userToken = await auth.api.getToken({
-        headers: await headers()
-    });
+    // const userToken = await auth.api.getToken({
+    //     headers: await headers()
+    // });
 
     const res = await fetch(`http://localhost:5000/sports/${id}`, {
         headers: {
-            authorization: `Bearer ${userToken?.token}`
+            // authorization: `Bearer ${userToken?.token}`
         },
         cache: 'no-store'
     });

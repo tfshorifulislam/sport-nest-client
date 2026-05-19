@@ -1,10 +1,7 @@
 import React from 'react';
-import Image from 'next/image';
-import Link from 'next/link';
 import { FiSearch } from 'react-icons/fi';
 import { auth } from '@/lib/auth';
 import { headers } from 'next/headers';
-import { Dropdown, Label } from '@heroui/react';
 import FetchingAllCard from '@/components/FetchingAllCard';
 
 const AllFacilities = async () => {

@@ -20,7 +20,7 @@ const AddFacilitiesPage = () => {
     const { data: session } = authClient.useSession()
     // console.log('session', session)
     const user = session?.user
-    console.log(user)
+    // console.log(user)
 
     const [slots, setSlots] = useState([]);
 
@@ -44,11 +44,13 @@ const AddFacilitiesPage = () => {
             availableTimeSlots,
         };
 
+        // const { data: userToken } = await authClient.token()
 
         const res = await fetch(`http://localhost:5000/sports`, {
             method: 'POST',
             headers: {
-                'content-type': 'application/json'
+                'content-type': 'application/json',
+                // authorization: `Bearer ${userToken.token}`
             },
             body: JSON.stringify(facilityData)
         })

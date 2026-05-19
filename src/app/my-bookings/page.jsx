@@ -11,17 +11,17 @@ const MyBookingsPage = async () => {
 
     const user = session?.user;
 
-    const userToken = await auth.api.getToken({
-        headers: await headers()
-    });
-    console.log(userToken)
+    // const userToken = await auth.api.getToken({
+    //     headers: await headers()
+    // });
+    // console.log(userToken)
 
     const res = await fetch(`http://localhost:5000/bookings/${user?.id}`,
         {
             method: "GET",
             headers: {
                 "content-type": "application/json",
-                authorization: `Bearer ${userToken?.token}`
+                // authorization: `Bearer ${userToken?.token}`
             },
             cache: 'no-store'
         });
@@ -82,7 +82,7 @@ const MyBookingsPage = async () => {
                                     </p>
 
                                     <h3 className="mt-3 text-2xl font-black text-white">
-                                        Confirmed
+                                        Pending
                                     </h3>
                                 </div>
                             </div>
