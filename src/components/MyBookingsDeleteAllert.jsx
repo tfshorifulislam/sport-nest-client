@@ -1,55 +1,79 @@
 "use client";
+
 import React from "react";
 import {
     AlertDialog,
     Button
 } from "@heroui/react";
+
 import { MdDeleteForever } from "react-icons/md";
 import toast from "react-hot-toast";
-import { redirect } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { authClient } from "@/lib/auth-client";
 
 export function MyBookingsDeleteAllert({ bookingCard }) {
+
+    const router = useRouter();
 
     const { _id } = bookingCard;
 
     const onSubmit = async () => {
 
-        const { data } = await authClient.token()
-        // console.log('Data', data)
+        const { data } = await authClient.token();
 
         try {
 
-            const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/mentora/${_id}`,
+            const res = await fetch(`http://localhost:5000/bookings/${_id}`,
                 {
                     method: "DELETE",
                     headers: {
                         "content-type": "application/json",
-                        authorization: `Bearer ${data.token}`
+                        authorization: `Bearer ${data?.token}`
                     }
                 }
             );
 
-            const MyBookingsDeleteAllert = await res.json();
+            const result = await res.json();
 
-            // console.log(MyBookingsDeleteAllert, "bookingCard delete data");
+            if (result?.deletedCount > 0) {
 
+                toast.success("Booking cancelled successfully");
+
+                router.refresh();
+            }
 
         } catch (error) {
 
-            console.log('delete bookingCard alert component data fetch system not working');
+            console.log(error);
+
+            toast.error("Something went wrong");
         }
-        toast.success(`${bookingCard.title} Permanently deleted`)
-        redirect('/bookingCards')
     };
 
     return (
 
         <AlertDialog>
-
-            {/* OPEN BUTTON */}
             <Button
-                className="flex h-12 items-center justify-center rounded-2xl bg-red-500 px-6 text-sm font-semibold text-white transition hover:bg-red-600"
+                className="
+                    h-11
+                    sm:h-12
+                    w-full
+                    sm:w-auto
+                    rounded-2xl
+                    border
+                    border-red-200
+                    bg-red-50
+                    px-5
+                    sm:px-6
+                    text-sm
+                    font-semibold
+                    text-red-600
+                    transition-all
+                    duration-300
+                    hover:border-red-300
+                    hover:bg-red-100
+                    hover:text-red-700
+                "
             >
                 Cancel Booking
             </Button>
@@ -57,42 +81,68 @@ export function MyBookingsDeleteAllert({ bookingCard }) {
             {/* BACKDROP */}
             <AlertDialog.Backdrop
                 className="
-                    bg-black/70
-                    backdrop-blur-sm
+                    bg-slate-950/70
+                    backdrop-blur-md
+                    p-3
+                    sm:p-5
                 "
             >
 
-                <AlertDialog.Container
-                    className="p-4"
-                >
+                <AlertDialog.Container className="flex items-center justify-center">
 
                     {/* DIALOG */}
                     <AlertDialog.Dialog
                         className="
+                            relative
                             w-full
-                            max-w-md
-                            rounded-3xl
+                            max-w-[95vw]
+                            sm:max-w-lg
+                            overflow-hidden
+                            rounded-[28px]
+                            sm:rounded-[32px]
                             border
-                            border-white/10
-                            bg-slate-950
-                            text-white
+                            border-slate-200
+                            bg-white
                             shadow-2xl
-                            backdrop-blur-2xl
                         "
                     >
+
+                        <div
+                            className="
+                                absolute
+                                inset-x-0
+                                top-0
+                                h-1.5
+                                bg-gradient-to-r
+                                from-red-500
+                                via-rose-500
+                                to-orange-400
+                            "
+                        />
 
                         <AlertDialog.CloseTrigger
                             className="
                                 absolute
-                                right-4
-                                top-4
-                                text-white
-                                bg-red-700
-                                hover:text-white
+                                right-3
+                                top-3
+                                sm:right-5
+                                sm:top-5
+                                flex
+                                h-9
+                                w-9
+                                sm:h-10
+                                sm:w-10
+                                items-center
+                                justify-center
+                                rounded-full
+                                bg-slate-100
+                                text-slate-500
+                                transition
+                                hover:bg-red-100
+                                hover:text-red-500
                             "
                         />
 
-                        {/* HEADER */}
                         <AlertDialog.Header
                             className="
                                 flex
@@ -100,9 +150,11 @@ export function MyBookingsDeleteAllert({ bookingCard }) {
                                 items-start
                                 gap-4
                                 border-b
-                                border-white/10
-                                px-6
+                                border-slate-100
+                                px-5
                                 py-6
+                                sm:px-8
+                                sm:py-8
                             "
                         >
 
@@ -111,17 +163,19 @@ export function MyBookingsDeleteAllert({ bookingCard }) {
                                     flex
                                     h-14
                                     w-14
+                                    sm:h-16
+                                    sm:w-16
                                     items-center
                                     justify-center
-                                    rounded-2xl
-                                    border
-                                    border-red-500/20
-                                    bg-red-500/10
+                                    rounded-3xl
+                                    bg-gradient-to-br
+                                    from-red-100
+                                    to-rose-100
+                                    shadow-inner
                                 "
                             >
 
-                                <MdDeleteForever className="text-3xl text-red-700" />
-
+                                <MdDeleteForever className="text-3xl sm:text-4xl text-red-500" />
 
                             </div>
 
@@ -130,22 +184,26 @@ export function MyBookingsDeleteAllert({ bookingCard }) {
                                 <AlertDialog.Heading
                                     className="
                                         text-2xl
-                                        font-bold
-                                        leading-tight
-                                        text-white/50
+                                        sm:text-3xl
+                                        font-black
+                                        tracking-tight
+                                        text-slate-900
                                     "
                                 >
-                                    Delete{" "}
-
-                                    <span className="bg-gradient-to-r from-red-400 to-pink-400 bg-clip-text text-transparent">
-                                        bookingCard
-                                    </span>
-
-                                    ?
+                                    Cancel Booking?
                                 </AlertDialog.Heading>
 
-                                <p className="mt-2 text-sm text-white/60 leading-relaxed">
-                                    This action is permanent and cannot be undone.
+                                <p
+                                    className="
+                                        mt-3
+                                        text-sm
+                                        leading-6
+                                        sm:leading-7
+                                        text-slate-500
+                                    "
+                                >
+                                    This booking will be permanently removed
+                                    from your booking history and cannot be restored.
                                 </p>
 
                             </div>
@@ -155,90 +213,229 @@ export function MyBookingsDeleteAllert({ bookingCard }) {
                         {/* BODY */}
                         <AlertDialog.Body
                             className="
-                                px-6
-                                py-6
+                                px-5
+                                py-5
+                                sm:px-8
+                                sm:py-7
                             "
                         >
 
                             <div
                                 className="
-                                    rounded-2xl
+                                    rounded-3xl
                                     border
-                                    border-white/10
-                                    bg-white/5
+                                    border-slate-200
+                                    bg-gradient-to-br
+                                    from-slate-50
+                                    to-white
                                     p-5
+                                    sm:p-6
                                 "
                             >
 
-                                <p className="text-sm leading-relaxed text-white/70">
+                                <div className="flex flex-col gap-5 sm:flex-row sm:items-start sm:justify-between">
 
-                                    You are about to permanently delete{" "}
+                                    <div className="min-w-0 flex-1">
 
-                                    <span className="font-semibold text-white">
-                                        {bookingCard.title}
-                                    </span>
+                                        <p
+                                            className="
+                                                text-[11px]
+                                                font-semibold
+                                                uppercase
+                                                tracking-[0.2em]
+                                                text-emerald-600
+                                            "
+                                        >
+                                            Facility
+                                        </p>
 
-                                    . All related bookingCard data will be removed permanently.
+                                        <h3
+                                            className="
+                                                mt-3
+                                                break-words
+                                                text-xl
+                                                sm:text-2xl
+                                                font-bold
+                                                leading-tight
+                                                text-slate-900
+                                            "
+                                        >
+                                            {bookingCard?.facilityName}
+                                        </h3>
 
-                                </p>
+                                        <p
+                                            className="
+                                                mt-3
+                                                text-sm
+                                                leading-6
+                                                text-slate-500
+                                            "
+                                        >
+                                            {bookingCard?.facilityLocation}
+                                        </p>
+
+                                    </div>
+
+                                    <div
+                                        className="
+                                            w-fit
+                                            rounded-2xl
+                                            bg-emerald-100
+                                            px-4
+                                            py-2
+                                            text-xs
+                                            sm:text-sm
+                                            font-semibold
+                                            text-emerald-700
+                                        "
+                                    >
+                                        {bookingCard?.facilityType}
+                                    </div>
+
+                                </div>
+
+                                <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-2">
+
+                                    <div
+                                        className="
+                                            rounded-2xl
+                                            border
+                                            border-slate-100
+                                            bg-white
+                                            p-4
+                                        "
+                                    >
+
+                                        <p
+                                            className="
+                                                text-[11px]
+                                                font-semibold
+                                                uppercase
+                                                tracking-wide
+                                                text-slate-400
+                                            "
+                                        >
+                                            Booking Date
+                                        </p>
+
+                                        <h4
+                                            className="
+                                                mt-2
+                                                text-sm
+                                                sm:text-base
+                                                font-bold
+                                                text-slate-900
+                                            "
+                                        >
+                                            {bookingCard?.bookingDate}
+                                        </h4>
+                                    </div>
+
+                                    <div
+                                        className="
+                                            rounded-2xl
+                                            border
+                                            border-slate-100
+                                            bg-white
+                                            p-4
+                                        "
+                                    >
+
+                                        <p
+                                            className="
+                                                text-[11px]
+                                                font-semibold
+                                                uppercase
+                                                tracking-wide
+                                                text-slate-400
+                                            "
+                                        >
+                                            Total Price
+                                        </p>
+
+                                        <h4
+                                            className="
+                                                mt-2
+                                                text-sm
+                                                sm:text-base
+                                                font-bold
+                                                text-emerald-600
+                                            "
+                                        >
+                                            ৳{bookingCard?.totalPrice}
+                                        </h4>
+                                    </div>
+
+                                </div>
 
                             </div>
 
                         </AlertDialog.Body>
 
-                        {/* FOOTER */}
                         <AlertDialog.Footer
                             className="
                                 flex
                                 flex-col-reverse
                                 gap-3
                                 border-t
-                                border-white/10
-                                px-6
+                                border-slate-100
+                                px-5
                                 py-5
                                 sm:flex-row
                                 sm:justify-end
+                                sm:px-8
+                                sm:py-6
                             "
                         >
 
                             <Button
                                 slot="close"
                                 className="
+                                    h-11
+                                    sm:h-12
                                     w-full
                                     sm:w-auto
-                                    rounded-xl
+                                    rounded-2xl
                                     border
-                                    border-white/10
-                                    bg-white/5
+                                    border-slate-200
+                                    bg-white
                                     px-6
-                                    text-white/70
-                                    hover:bg-white/10
+                                    text-sm
+                                    font-semibold
+                                    text-slate-700
+                                    transition
+                                    hover:bg-slate-50
                                 "
                             >
-                                Cancel
+                                Keep Booking
                             </Button>
 
                             <Button
                                 slot="close"
                                 onClick={onSubmit}
                                 className="
+                                    h-11
+                                    sm:h-12
                                     w-full
                                     sm:w-auto
-                                    rounded-xl
+                                    rounded-2xl
                                     bg-gradient-to-r
                                     from-red-500
-                                    to-pink-500
+                                    to-rose-500
                                     px-6
+                                    text-sm
                                     font-semibold
                                     text-white
                                     shadow-lg
                                     shadow-red-500/20
                                     transition-all
                                     duration-300
-                                    hover:scale-[1.02]
+                                    hover:scale-[1.01]
+                                    hover:from-red-600
+                                    hover:to-rose-600
                                 "
                             >
-                                Delete Permanently
+                                Confirm Cancel
                             </Button>
 
                         </AlertDialog.Footer>
