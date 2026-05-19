@@ -16,6 +16,7 @@ const DetailsPageRightSideCard = ({ data }) => {
 
     const { data: session } = authClient.useSession();
     const user = session?.user;
+    // console.log(user, 'token')
 
 
     const handleBooking = async (e) => {
@@ -35,7 +36,7 @@ const DetailsPageRightSideCard = ({ data }) => {
         );
 
         // final booking object
-        const booking = {
+        const bookings = {
             userId: user?.id,
             userName: user?.name,
             userEmail: user?.email,
@@ -57,17 +58,23 @@ const DetailsPageRightSideCard = ({ data }) => {
             // createdAt: new Date(),
         };
 
+
+        const { data: userToken } = await authClient.token()
+        console.log(userToken)
+
         const res = await fetch(`http://localhost:5000/bookings`, {
             method: 'POST',
             headers: {
-                'content-type': 'application/json'
+                'content-type': 'application/json',
+                // authorization: `Bearer ${userToken.token}`
+
             },
-            body: JSON.stringify(booking)
+            body: JSON.stringify(bookings)
         })
         const insertBokingData = await res.json()
 
         // console.log('data', insertBokingData);
-        toast.success(`${booking.facilityName} is successfully book`)
+        toast.success(`${bookings.facilityName} is successfully book`)
         router.push('/all-facilities')
     };
 

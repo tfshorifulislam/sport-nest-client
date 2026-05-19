@@ -13,6 +13,7 @@ import {
     Description
 } from "@heroui/react";
 import { authClient } from '@/lib/auth-client';
+import toast from 'react-hot-toast';
 
 const AddFacilitiesPage = () => {
 
@@ -52,7 +53,9 @@ const AddFacilitiesPage = () => {
             body: JSON.stringify(facilityData)
         })
         const data = await res.json()
-        console.log(data)
+        // console.log(data)
+        toast.success(`${facilityData.name} is Added`)
+
     }
 
     return (
