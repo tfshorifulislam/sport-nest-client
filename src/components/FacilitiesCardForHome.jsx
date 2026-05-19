@@ -1,3 +1,5 @@
+import { auth } from '@/lib/auth';
+import { headers } from 'next/headers';
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
@@ -12,12 +14,17 @@ const FacilitiesCardForHome = async () => {
 
     const cards = data?.slice(0, 6);
 
+    const session = await auth.api.getSession({
+        headers: await headers()
+    })
+    const user = session
+
     return (
         <section className="bg-slate-50 py-14">
 
             <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 
-               
+
                 <div className="mb-10 flex items-end justify-between">
 
                     <div>
@@ -43,7 +50,7 @@ const FacilitiesCardForHome = async () => {
                     </Link>
                 </div>
 
-               
+
                 <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
 
                     {
@@ -54,7 +61,7 @@ const FacilitiesCardForHome = async () => {
                                 className="overflow-hidden rounded-3xl border border-slate-200 bg-white p-3 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
                             >
 
-                               
+
                                 <div className="relative h-52 overflow-hidden rounded-2xl">
 
                                     <Image
@@ -64,16 +71,16 @@ const FacilitiesCardForHome = async () => {
                                         className="object-cover transition duration-500 hover:scale-105"
                                     />
 
-                                   
+
                                     <div className="absolute left-3 top-3 rounded-full bg-white/90 px-3 py-1 text-xs font-semibold text-emerald-700 backdrop-blur">
                                         {facility.type}
                                     </div>
                                 </div>
 
-                                
+
                                 <div className="pt-4">
 
-                                   
+
                                     <div className="flex items-start justify-between gap-3">
 
                                         <div>
@@ -87,16 +94,16 @@ const FacilitiesCardForHome = async () => {
                                             </p>
                                         </div>
 
-                                       
+
                                         <div className="rounded-xl bg-emerald-50 px-3 py-1 text-sm font-semibold text-emerald-600">
                                             4.8
                                         </div>
                                     </div>
 
-                                   
+
                                     <div className="mt-5 flex items-center justify-between">
 
-                                       
+
                                         <div>
 
                                             <p className="text-xs text-slate-400">
@@ -108,9 +115,9 @@ const FacilitiesCardForHome = async () => {
                                             </h4>
                                         </div>
 
-                                       
+
                                         <Link
-                                            href={`/`}
+                                            href={user ? `/all-facilities/${facility._id}` : `/login`}
                                             className="rounded-full bg-emerald-600 px-5 py-2 text-sm font-medium text-white transition hover:bg-emerald-700"
                                         >
                                             Book Now
