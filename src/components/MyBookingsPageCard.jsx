@@ -181,7 +181,7 @@ const MyBookingsPageCard = ({ bookingCard }) => {
 
                     {/* BUTTONS */}
                     <div className="flex flex-col gap-3 sm:flex-row">
-                        <MyBookingsDeleteAllert />
+                        <MyBookingsDeleteAllert bookingCard= {bookingCard} />
                     </div>
                 </div>
             </div>

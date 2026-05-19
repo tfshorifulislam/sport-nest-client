@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { authClient } from '@/lib/auth-client';
+import toast from 'react-hot-toast';
 
 
 
@@ -65,7 +66,9 @@ const DetailsPageRightSideCard = ({ data }) => {
         })
         const insertBokingData = await res.json()
 
-        console.log('data', insertBokingData);
+        // console.log('data', insertBokingData);
+        toast.success(`${booking.facilityName} is successfully book`)
+        router.push('/all-facilities')
     };
 
 
