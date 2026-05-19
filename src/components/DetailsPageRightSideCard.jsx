@@ -1,6 +1,20 @@
+
+import { redirect } from 'next/navigation';
 import React from 'react';
 
-const DetailsPageRightSideCard = ({ data }) => {
+const DetailsPageRightSideCard =  ({ data }) => {
+
+    const handleBokking = async () => {
+        const session = await auth.api.getSession({
+            headers: await headers()
+        })
+
+        if(!session){
+            redirect('/login')
+        }
+
+
+    }
     return (
         <div>
 
@@ -33,11 +47,11 @@ const DetailsPageRightSideCard = ({ data }) => {
                 {/* BUTTONS */}
                 <div className="mt-6 flex flex-col gap-3">
 
-                    <button className="flex h-12 w-full items-center justify-center rounded-2xl bg-emerald-600 text-sm font-medium text-white transition hover:bg-emerald-700">
+                    <button className="flex cursor-pointer h-12 w-full items-center justify-center rounded-2xl bg-emerald-600 text-sm font-medium text-white transition hover:bg-emerald-700">
                         Book Now
                     </button>
 
-                    <button className="flex h-12 w-full items-center justify-center rounded-2xl border border-slate-300 bg-white text-sm font-medium text-slate-700 transition hover:border-emerald-500 hover:text-emerald-600">
+                    <button className="flex cursor-pointer h-12 w-full items-center justify-center rounded-2xl border border-slate-300 bg-white text-sm font-medium text-slate-700 transition hover:border-emerald-500 hover:text-emerald-600">
                         Contact Owner
                     </button>
                 </div>

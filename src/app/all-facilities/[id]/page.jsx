@@ -25,10 +25,10 @@ const DetailsPage = async ({ params }) => {
                     className="object-cover"
                 />
 
-               
+
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-black/10" />
 
-               
+
                 <div className="absolute bottom-0 left-0 w-full">
 
                     <div className="mx-auto max-w-7xl px-4 mb-8 pb-10 sm:px-6 lg:px-8">
@@ -56,15 +56,15 @@ const DetailsPage = async ({ params }) => {
                 </div>
             </div>
 
-        
+
             <div className="mx-auto -mt-14 max-w-7xl px-4 sm:px-6 lg:px-8">
 
                 <div className="relative overflow-hidden rounded-[32px] border border-slate-200 bg-white shadow-sm">
 
-                  
+
                     <div className="grid grid-cols-2 border-b border-slate-100 lg:grid-cols-4">
 
-                        
+
                         <div className="border-b border-r border-slate-100 p-6 lg:border-b-0">
 
                             <p className="text-xs font-medium uppercase tracking-widest text-slate-400">
@@ -76,7 +76,7 @@ const DetailsPage = async ({ params }) => {
                             </h2>
                         </div>
 
-                       
+
                         <div className="border-b border-slate-100 p-6 lg:border-b-0 lg:border-r">
 
                             <p className="text-xs font-medium uppercase tracking-widest text-slate-400">
@@ -107,7 +107,7 @@ const DetailsPage = async ({ params }) => {
                             </p>
                         </div>
 
-                       
+
                         <div className="p-6">
 
                             <p className="text-xs font-medium uppercase tracking-widest text-slate-400">
@@ -120,13 +120,13 @@ const DetailsPage = async ({ params }) => {
                         </div>
                     </div>
 
-                  
+
                     <div className="grid gap-10 p-6 lg:grid-cols-[1.3fr_.7fr] lg:p-10">
 
-                       
+
                         <div>
 
-                         
+
                             <div>
 
                                 <h2 className="text-2xl font-bold text-slate-900">
@@ -138,7 +138,7 @@ const DetailsPage = async ({ params }) => {
                                 </p>
                             </div>
 
-                         
+
                             <div className="mt-12">
 
                                 <h2 className="text-2xl font-bold text-slate-900">
@@ -161,8 +161,6 @@ const DetailsPage = async ({ params }) => {
                                 </div>
                             </div>
                         </div>
-
-                       
                         <DetailsPageRightSideCard data={data} />
                     </div>
                 </div>
