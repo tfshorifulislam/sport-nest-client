@@ -61,14 +61,22 @@ const AddFacilitiesPage = () => {
             <div className="mx-auto w-full max-w-5xl">
 
                 {/* Header */}
-                <div className="mb-10">
+                <div className="mb-12">
 
-                    <h1 className="text-3xl font-bold tracking-tight text-slate-900">
-                        Add New Facility
+                    <span className="inline-flex rounded-full bg-emerald-50 px-4 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-emerald-700">
+                        Sports Facility
+                    </span>
+
+                    <h1 className="mt-4 text-3xl font-bold tracking-tight text-slate-900 sm:text-4xl">
+                        Add Your
+                        <span className="bg-gradient-to-r from-emerald-600 to-emerald-400 bg-clip-text text-transparent">
+                            {" "}New Facility
+                        </span>
                     </h1>
 
-                    <p className="mt-2 text-sm text-slate-500">
-                        Fill in the facility details to publish your sports venue.
+                    <p className="mt-3 max-w-2xl text-sm leading-7 text-slate-500 sm:text-base">
+                        Publish your sports venue with complete details, pricing,
+                        available slots, and facility information to start receiving bookings.
                     </p>
                 </div>
 
