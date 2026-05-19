@@ -110,10 +110,10 @@ const FacilitiesCardForHome = async () => {
 
                                        
                                         <Link
-                                            href={`/all-facilities/${facility._id}`}
+                                            href={`/`}
                                             className="rounded-full bg-emerald-600 px-5 py-2 text-sm font-medium text-white transition hover:bg-emerald-700"
                                         >
-                                            View
+                                            Book Now
                                         </Link>
                                     </div>
                                 </div>

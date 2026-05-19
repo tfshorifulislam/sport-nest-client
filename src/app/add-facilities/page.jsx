@@ -1,6 +1,6 @@
 'use client'
 
-import React from 'react';
+import React, { useState } from 'react';
 
 import {
     FieldError,
@@ -14,6 +14,39 @@ import {
 } from "@heroui/react";
 
 const AddFacilitiesPage = () => {
+    const [slots, setSlots] = useState([]);
+
+    const onSubmit = async (e) => {
+        e.preventDefault();
+
+        const formData = new FormData(e.currentTarget);
+
+
+        const availableTimeSlots = formData.getAll("availableTimeSlots");
+
+        const facilityData = {
+            name: formData.get("name"),
+            type: formData.get("type"),
+            image: formData.get("image"),
+            location: formData.get("location"),
+            pricePerHour: formData.get("pricePerHour"),
+            capacity: formData.get("capacity"),
+            ownerEmail: formData.get("ownerEmail"),
+            description: formData.get("description"),
+            availableTimeSlots,
+        };
+
+
+        const res = await fetch(`http://localhost:5000/sports`, {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(facilityData)
+        })
+        const data = await res.json()
+        console.log(data)
+    }
 
     return (
         <div className="min-h-screen bg-slate-50 px-4 py-12">
@@ -35,12 +68,14 @@ const AddFacilitiesPage = () => {
                 {/* Card */}
                 <div className="rounded-3xl border border-slate-200 bg-white p-8 shadow-sm">
 
-                    <form className="grid grid-cols-1 gap-6 md:grid-cols-2">
+                    <form
+                        onSubmit={onSubmit}
+                        className="grid grid-cols-1 gap-6 md:grid-cols-2">
 
                         {/* Facility Name */}
                         <TextField
                             isRequired
-                            name="facilityName"
+                            name="name"
                             className="w-full"
                         >
                             <div className="w-full">
@@ -60,7 +95,7 @@ const AddFacilitiesPage = () => {
 
                         {/* Facility Type */}
                         <Select
-                            name="facilityType"
+                            name="type"
                             className="w-full"
                             placeholder="Select type"
                         >
@@ -192,25 +227,56 @@ const AddFacilitiesPage = () => {
                         </TextField>
 
                         {/* Time Slots */}
-                        <TextField
-                            isRequired
-                            name="availableSlots"
+                        <Select
+                            name='availableTimeSlots'
                             className="w-full"
+                            placeholder="Select time slots"
+                            selectionMode="multiple"
+                            selectedKeys={slots}
+                            onSelectionChange={(keys) => {
+                                setSlots(Array.from(keys));
+                            }}
                         >
-                            <div className="w-full">
 
-                                <Label className="mb-2 block text-sm font-medium text-slate-700">
-                                    Available Time Slots
-                                </Label>
+                            <Label>Available Time Slots</Label>
 
-                                <Input
-                                    placeholder="6AM - 11PM"
-                                    className="w-full"
-                                />
+                            <Select.Trigger>
+                                <Select.Value />
+                                <Select.Indicator />
+                            </Select.Trigger>
 
-                                <FieldError className="mt-1 text-sm text-red-500" />
-                            </div>
-                        </TextField>
+                            <Select.Popover>
+
+                                <ListBox selectionMode="multiple">
+
+                                    <ListBox.Item
+                                        id="6:00 AM - 8:00 AM"
+                                        textValue="6:00 AM - 8:00 AM"
+                                    >
+                                        6:00 AM - 8:00 AM
+                                        <ListBox.ItemIndicator />
+                                    </ListBox.Item>
+
+                                    <ListBox.Item
+                                        id="4:00 PM - 6:00 PM"
+                                        textValue="4:00 PM - 6:00 PM"
+                                    >
+                                        4:00 PM - 6:00 PM
+                                        <ListBox.ItemIndicator />
+                                    </ListBox.Item>
+
+                                    <ListBox.Item
+                                        id="8:00 PM - 10:00 PM"
+                                        textValue="8:00 PM - 10:00 PM"
+                                    >
+                                        8:00 PM - 10:00 PM
+                                        <ListBox.ItemIndicator />
+                                    </ListBox.Item>
+
+                                </ListBox>
+
+                            </Select.Popover>
+                        </Select>
 
                         {/* Owner Email */}
                         <div className="md:col-span-2">
