@@ -1,72 +1,145 @@
+'use client'
 
-import { redirect } from 'next/navigation';
-import React from 'react';
+import React, { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { authClient } from '@/lib/auth-client';
 
-const DetailsPageRightSideCard =  ({ data }) => {
 
-    const handleBokking = async () => {
-        const session = await auth.api.getSession({
-            headers: await headers()
-        })
 
-        if(!session){
-            redirect('/login')
+const DetailsPageRightSideCard = ({ data }) => {
+    const router = useRouter();
+
+    const handleBooking = async () => {
+
+        const { data: session } = await authClient.getSession();
+
+        if (!session) {
+            router.push('/login');
+            return;
         }
+        router.push('/BookingFacilities');
+    };
 
 
-    }
+    const [hours, setHours] = useState(1);
+    const totalPrice = Number(data?.pricePerHour) * hours;
+
     return (
-        <div>
+        <div className="lg:sticky lg:top-8 lg:h-fit">
 
-            <div className="sticky top-24 rounded-3xl border border-slate-200 bg-slate-50 p-6">
+            <div className="rounded-[32px] border border-slate-200 bg-white p-7 shadow-sm">
 
-                <h3 className="text-xl font-bold text-slate-900">
-                    Quick Booking
-                </h3>
+                <h2 className="text-3xl font-bold text-slate-900">
+                    Book This Facility
+                </h2>
 
-                <p className="mt-2 text-sm leading-6 text-slate-500">
-                    Reserve your preferred slot and enjoy a premium sports experience.
+                <p className="mt-2 text-sm text-slate-500">
+                    Fill in your details to reserve this spot
                 </p>
 
-                {/* PRICE */}
-                <div className="mt-6 rounded-2xl bg-white p-5">
+                {/* FORM */}
+                <form className="mt-8 space-y-5">
 
-                    <p className="text-xs uppercase tracking-widest text-slate-400">
-                        Starting From
-                    </p>
+                    {/* NAME */}
+                    <div>
 
-                    <h2 className="mt-2 text-4xl font-bold text-emerald-600">
-                        ৳{data?.pricePerHour}
-                    </h2>
+                        <label className="mb-2 block text-xs font-semibold uppercase tracking-widest text-slate-500">
+                            Name
+                        </label>
 
-                    <p className="mt-1 text-sm text-slate-500">
-                        Per hour booking
-                    </p>
-                </div>
+                        <input
+                            type="text"
+                            placeholder="Enter your name"
+                            className="h-14 w-full rounded-2xl border border-slate-200 bg-slate-50 px-5 text-sm outline-none transition focus:border-emerald-500 focus:bg-white"
+                        />
+                    </div>
 
-                {/* BUTTONS */}
-                <div className="mt-6 flex flex-col gap-3">
+                    {/* DATE */}
+                    <div>
 
-                    <button className="flex cursor-pointer h-12 w-full items-center justify-center rounded-2xl bg-emerald-600 text-sm font-medium text-white transition hover:bg-emerald-700">
-                        Book Now
+                        <label className="mb-2 block text-xs font-semibold uppercase tracking-widest text-slate-500">
+                            Booking Date
+                        </label>
+
+                        <input
+                            type="date"
+                            className="h-14 w-full rounded-2xl border border-slate-200 bg-slate-50 px-5 text-sm outline-none transition focus:border-emerald-500 focus:bg-white"
+                        />
+                    </div>
+
+                    {/* SLOT */}
+                    <div>
+
+                        <label className="mb-2 block text-xs font-semibold uppercase tracking-widest text-slate-500">
+                            Time Slot
+                        </label>
+
+                        <select
+                            className="h-14 w-full rounded-2xl border border-slate-200 bg-slate-50 px-5 text-sm outline-none transition focus:border-emerald-500 focus:bg-white"
+                        >
+
+                            {
+                                data?.availableTimeSlots?.map((slot, index) => (
+
+                                    <option key={index}>
+                                        {slot}
+                                    </option>
+                                ))
+                            }
+                        </select>
+                    </div>
+
+                    {/* HOURS */}
+                    <div>
+
+                        <label className="mb-2 block text-xs font-semibold uppercase tracking-widest text-slate-500">
+                            Hours
+                        </label>
+
+                        <input
+                            type="number"
+                            min="1"
+                            max="8"
+                            defaultValue={hours}
+                            onChange={(e) => setHours(Number(e.target.value))}
+                            className="h-14 w-full rounded-2xl border border-slate-200 bg-slate-50 px-5 text-sm outline-none transition focus:border-emerald-500 focus:bg-white"
+                        />
+                    </div>
+
+                    {/* TOTAL */}
+                    <div className="rounded-3xl bg-emerald-50 p-5">
+
+                        <div className="flex items-center justify-between">
+
+                            <p className="text-sm text-slate-600">
+                                Price Per Hour
+                            </p>
+
+                            <h4 className="font-semibold text-slate-900">
+                                ৳{data?.pricePerHour}
+                            </h4>
+                        </div>
+
+                        <div className="mt-4 flex items-center justify-between border-t border-emerald-100 pt-4">
+
+                            <p className="text-lg font-semibold text-slate-900">
+                                Total Price
+                            </p>
+
+                            <h3 className="text-3xl font-bold text-emerald-600">
+                                ৳{totalPrice}
+                            </h3>
+                        </div>
+                    </div>
+
+                    {/* BUTTON */}
+                    <button
+                        onClick={handleBooking}
+                        className="flex h-14 w-full items-center justify-center rounded-2xl bg-emerald-600 text-sm font-semibold text-white transition hover:bg-emerald-700"
+                    >
+                        Confirm Booking
                     </button>
-
-                    <button className="flex cursor-pointer h-12 w-full items-center justify-center rounded-2xl border border-slate-300 bg-white text-sm font-medium text-slate-700 transition hover:border-emerald-500 hover:text-emerald-600">
-                        Contact Owner
-                    </button>
-                </div>
-
-                {/* LOCATION */}
-                <div className="mt-8 border-t border-slate-200 pt-6">
-
-                    <p className="text-xs uppercase tracking-widest text-slate-400">
-                        Location
-                    </p>
-
-                    <p className="mt-3 text-sm leading-7 text-slate-600">
-                        {data?.location}
-                    </p>
-                </div>
+                </form>
             </div>
         </div>
     );

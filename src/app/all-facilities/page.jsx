@@ -186,7 +186,7 @@ const AllFacilities = async () => {
                                             href={user ? `/all-facilities/${facility._id}` : `/login`}
                                             className="flex h-12 w-full items-center justify-center rounded-2xl bg-emerald-600 text-sm font-medium text-white transition-all duration-200 hover:bg-emerald-700"
                                         >
-                                            View Details
+                                            Book Now
                                         </Link>
                                     </div>
                                 </div>

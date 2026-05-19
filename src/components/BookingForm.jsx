@@ -14,7 +14,7 @@ import {
 
 import { authClient } from '@/lib/auth-client';
 
-const AddFacilitiesPage = () => {
+const BookingFacilitiesPage = () => {
 
     const { data: session } = authClient.useSession()
     // console.log('session', session)

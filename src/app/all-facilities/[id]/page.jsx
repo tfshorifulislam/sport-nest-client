@@ -1,3 +1,4 @@
+
 import DetailsPageRightSideCard from '@/components/DetailsPageRightSideCard';
 import { auth } from '@/lib/auth';
 import { headers } from 'next/headers';
@@ -8,182 +9,141 @@ const DetailsPage = async ({ params }) => {
 
     const { id } = await params;
 
-    //server component token get system
     const userToken = await auth.api.getToken({
         headers: await headers()
-    })
-
-    console.log('token', userToken.token)
+    });
 
     const res = await fetch(`http://localhost:5000/sports/${id}`, {
         headers: {
-            authorization: `Bearer ${userToken.token}`
-        }
+            authorization: `Bearer ${userToken?.token}`
+        },
+        cache: 'no-store'
     });
 
     const data = await res.json();
-    console.log(data)
+
+    // const totalPrice = data?.pricePerHour 
 
     return (
-        <section className="min-h-screen bg-slate-50 pb-20">
+        <section className="min-h-screen bg-slate-100 py-10">
 
-            <div className="relative h-[350px] w-full overflow-hidden sm:h-[500px] lg:h-[620px]">
+            <div className="mx-auto grid max-w-7xl gap-8 px-4 lg:grid-cols-[1.2fr_.8fr]">
 
-                {
-                    data?.image ? (
-                        <Image
-                            src={data.image}
-                            alt={data?.name || 'Facility Image'}
-                            fill
-                            priority
-                            className="object-cover"
-                        />
-                    ) : (
-                        <div className="flex h-full w-full items-center justify-center bg-slate-200 text-slate-500">
-                            No Image Available
+                {/* LEFT SIDE */}
+                <div>
+
+                    {/* IMAGE */}
+                    <div className="relative h-[320px] overflow-hidden rounded-[32px] sm:h-[450px]">
+
+                        {
+                            data?.image ? (
+                                <Image
+                                    src={data?.image}
+                                    alt={data?.name || 'Facility Image'}
+                                    fill
+                                    priority
+                                    className="object-cover"
+                                />
+                            ) : (
+                                <div className="flex h-full w-full items-center justify-center bg-slate-200">
+                                    No Image
+                                </div>
+                            )
+                        }
+
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/10 to-transparent" />
+
+                        <div className="absolute left-5 top-5 rounded-full bg-emerald-500 px-4 py-1 text-xs font-semibold uppercase tracking-wider text-white shadow-lg">
+                            {data?.type}
                         </div>
-                    )
-                }
+                    </div>
 
+                    {/* CONTENT */}
+                    <div className="mt-8">
 
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-black/10" />
-
-
-                <div className="absolute bottom-0 left-0 w-full">
-
-                    <div className="mx-auto max-w-7xl px-4 mb-8 pb-10 sm:px-6 lg:px-8">
-
-                        <div className="flex flex-wrap items-center gap-3">
-
-                            <span className="rounded-full bg-white/90 px-4 py-1 text-xs font-semibold uppercase tracking-wider text-emerald-700 backdrop-blur">
-                                {data?.type}
-                            </span>
-
-                            <span className="rounded-full bg-black/30 px-4 py-1 text-xs font-medium text-white backdrop-blur">
-                                {data?.capacity} Players Capacity
-                            </span>
-                        </div>
-
-                        <h1 className="mt-5 max-w-4xl text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl">
+                        <h1 className="text-4xl font-bold tracking-tight text-slate-900">
                             {data?.name}
                         </h1>
 
-                        <p className="mt-5 max-w-2xl text-sm leading-7 text-white/80 sm:text-base">
-                            {data?.location}
+                        <p className="mt-4 max-w-3xl text-sm leading-7 text-slate-600">
+                            {data?.description}
                         </p>
-                    </div>
 
-                </div>
-            </div>
+                        {/* INFO CARDS */}
+                        <div className="mt-8 grid gap-4 sm:grid-cols-2">
 
+                            <div className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm">
 
-            <div className="mx-auto -mt-14 max-w-7xl px-4 sm:px-6 lg:px-8">
-
-                <div className="relative overflow-hidden rounded-[32px] border border-slate-200 bg-white shadow-sm">
-
-
-                    <div className="grid grid-cols-2 border-b border-slate-100 lg:grid-cols-4">
-
-
-                        <div className="border-b border-r border-slate-100 p-6 lg:border-b-0">
-
-                            <p className="text-xs font-medium uppercase tracking-widest text-slate-400">
-                                Price / Hour
-                            </p>
-
-                            <h2 className="mt-3 text-3xl font-bold text-emerald-600">
-                                ৳{data?.pricePerHour}
-                            </h2>
-                        </div>
-
-
-                        <div className="border-b border-slate-100 p-6 lg:border-b-0 lg:border-r">
-
-                            <p className="text-xs font-medium uppercase tracking-widest text-slate-400">
-                                Capacity
-                            </p>
-
-                            <h2 className="mt-3 text-3xl font-bold text-slate-900">
-                                {data?.capacity}
-                            </h2>
-
-                            <p className="mt-1 text-sm text-slate-500">
-                                Maximum Players
-                            </p>
-                        </div>
-
-                        <div className="border-r border-slate-100 p-6">
-
-                            <p className="text-xs font-medium uppercase tracking-widest text-slate-400">
-                                Time Slots
-                            </p>
-
-                            <h2 className="mt-3 text-3xl font-bold text-slate-900">
-                                {data?.availableTimeSlots?.length}
-                            </h2>
-
-                            <p className="mt-1 text-sm text-slate-500">
-                                Available Sessions
-                            </p>
-                        </div>
-
-
-                        <div className="p-6">
-
-                            <p className="text-xs font-medium uppercase tracking-widest text-slate-400">
-                                Facility Type
-                            </p>
-
-                            <h2 className="mt-3 text-2xl font-bold text-slate-900">
-                                {data?.type}
-                            </h2>
-                        </div>
-                    </div>
-
-
-                    <div className="grid gap-10 p-6 lg:grid-cols-[1.3fr_.7fr] lg:p-10">
-
-
-                        <div>
-
-
-                            <div>
-
-                                <h2 className="text-2xl font-bold text-slate-900">
-                                    About This Facility
-                                </h2>
-
-                                <p className="mt-5 whitespace-pre-line text-sm leading-8 text-slate-600 sm:text-base">
-                                    {data?.description}
+                                <p className="text-xs font-semibold uppercase tracking-widest text-slate-400">
+                                    Location
                                 </p>
+
+                                <h3 className="mt-3 text-lg font-semibold text-slate-900">
+                                    {data?.location}
+                                </h3>
                             </div>
 
+                            <div className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm">
 
-                            <div className="mt-12">
+                                <p className="text-xs font-semibold uppercase tracking-widest text-slate-400">
+                                    Capacity
+                                </p>
 
-                                <h2 className="text-2xl font-bold text-slate-900">
-                                    Available Time Slots
-                                </h2>
+                                <h3 className="mt-3 text-lg font-semibold text-slate-900">
+                                    Up to {data?.capacity} players
+                                </h3>
+                            </div>
 
-                                <div className="mt-6 flex flex-wrap gap-3">
+                            <div className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm">
 
-                                    {
-                                        data?.availableTimeSlots?.map((slot, index) => (
+                                <p className="text-xs font-semibold uppercase tracking-widest text-slate-400">
+                                    Price
+                                </p>
 
-                                            <span
-                                                key={index}
-                                                className="rounded-full border border-slate-200 bg-slate-50 px-4 py-2 text-sm font-medium text-slate-700 transition hover:border-emerald-500 hover:bg-emerald-50 hover:text-emerald-600"
-                                            >
-                                                {slot}
-                                            </span>
-                                        ))
-                                    }
-                                </div>
+                                <h3 className="mt-3 text-lg font-semibold text-emerald-600">
+                                    ৳{data?.pricePerHour}/hour
+                                </h3>
+                            </div>
+
+                            <div className="rounded-3xl border border-slate-200 bg-white p-5 shadow-sm">
+
+                                <p className="text-xs font-semibold uppercase tracking-widest text-slate-400">
+                                    Slots
+                                </p>
+
+                                <h3 className="mt-3 text-lg font-semibold text-slate-900">
+                                    {data?.availableTimeSlots?.length} available
+                                </h3>
                             </div>
                         </div>
-                        <DetailsPageRightSideCard data={data} />
+
+                        {/* TIME SLOTS */}
+                        <div className="mt-10">
+
+                            <h2 className="text-2xl font-bold text-slate-900">
+                                Available Time Slots
+                            </h2>
+
+                            <div className="mt-5 flex flex-wrap gap-3">
+
+                                {
+                                    data?.availableTimeSlots?.map((slot, index) => (
+
+                                        <span
+                                            key={index}
+                                            className="rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-700 shadow-sm"
+                                        >
+                                            {slot}
+                                        </span>
+                                    ))
+                                }
+                            </div>
+                        </div>
                     </div>
                 </div>
+
+                {/* RIGHT SIDE BOOKING CARD */}
+                <DetailsPageRightSideCard data = {data} />
             </div>
         </section>
     );
