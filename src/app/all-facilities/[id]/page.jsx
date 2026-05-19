@@ -1,4 +1,6 @@
 import DetailsPageRightSideCard from '@/components/DetailsPageRightSideCard';
+import { auth } from '@/lib/auth';
+import { headers } from 'next/headers';
 import Image from 'next/image';
 import React from 'react';
 
@@ -6,8 +8,15 @@ const DetailsPage = async ({ params }) => {
 
     const { id } = await params;
 
+    //server component token get system
+    const userToken = await auth.api.getToken({
+        headers: await headers()
+    })
+
     const res = await fetch(`http://localhost:5000/sports/${id}`, {
-        cache: 'no-store',
+        headers: {
+            authorization: `Bearer ${userToken.token}`
+        }
     });
 
     const data = await res.json();
