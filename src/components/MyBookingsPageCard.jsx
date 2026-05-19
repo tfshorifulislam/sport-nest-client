@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import React from 'react';
 
 const MyBookingsPageCard = ({ bookingCard }) => {
@@ -179,13 +180,6 @@ const MyBookingsPageCard = ({ bookingCard }) => {
 
                     {/* BUTTONS */}
                     <div className="flex flex-col gap-3 sm:flex-row">
-
-                        <button
-                            className="flex h-12 items-center justify-center rounded-2xl border border-slate-300 bg-white px-6 text-sm font-semibold text-slate-700 transition hover:border-emerald-500 hover:text-emerald-600"
-                        >
-                            View Details
-                        </button>
-
                         <button
                             className="flex h-12 items-center justify-center rounded-2xl bg-red-500 px-6 text-sm font-semibold text-white transition hover:bg-red-600"
                         >
