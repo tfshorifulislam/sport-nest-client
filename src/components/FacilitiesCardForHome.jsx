@@ -1,30 +1,16 @@
-import { auth } from '@/lib/auth';
-// import { headers } from 'next/headers';
 import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react';
 
 const FacilitiesCardForHome = async () => {
 
-    // const userToken = await auth.api.getToken({
-    //     headers: await headers()
-    // });
-
     const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/sports`, {
         cache: 'no-store',
-        // headers: {
-        //         authorization: `Bearer ${userToken.token}`
-        //     },
     });
 
     const data = await res.json();
 
     const cards = data?.slice(0, 8);
-
-    // const session = await auth.api.getSession({
-    //     headers: await headers()
-    // })
-    // const user = session
 
     return (
         <section className="bg-slate-50 py-14">

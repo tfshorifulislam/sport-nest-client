@@ -11,8 +11,10 @@ export async function proxy(request) {
     if (!session) {
         return NextResponse.redirect(new URL('/signup', request.url))
     }
+
+   return NextResponse.next()
 }
 
 export const config = {
-    matcher: ['/my-bookings', '/add-facilities', '/manages-facilities']
+    matcher: ['/my-bookings', '/add-facilities', '/manages-facilities', '/all-facilities/:path*']
 }
