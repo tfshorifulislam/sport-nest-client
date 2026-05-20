@@ -14,6 +14,7 @@ import {
 } from "@heroui/react";
 import { authClient } from '@/lib/auth-client';
 import toast from 'react-hot-toast';
+import { redirect } from "next/navigation";
 
 const AddFacilitiesPage = () => {
 
@@ -23,6 +24,7 @@ const AddFacilitiesPage = () => {
     // console.log(user)
 
     const [slots, setSlots] = useState([]);
+
 
     const onSubmit = async (e) => {
         e.preventDefault();
@@ -55,9 +57,9 @@ const AddFacilitiesPage = () => {
             body: JSON.stringify(facilityData)
         })
         const data = await res.json()
-        // console.log(data)
+        console.log(data)
         toast.success(`${facilityData.name} is Added`)
-
+        redirect('/all-facilities')
     }
 
     return (

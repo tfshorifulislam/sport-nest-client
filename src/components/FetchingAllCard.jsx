@@ -30,12 +30,16 @@ const FetchingAllCard = ({ facility }) => {
             <div className="relative h-60 overflow-hidden">
 
                 <Image
-                    src={facility.image}
+                    src={
+                        facility?.image?.startsWith("http")
+                            ? facility.image
+                            : "/placeholder.jpg"
+                    }
                     alt={facility.name}
                     fill
                     className="object-cover transition duration-700 hover:scale-105"
                 />
-
+                
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/10 to-transparent" />
 
                 <div className="absolute left-4 top-4 rounded-full bg-white/90 px-3 py-1 text-xs font-semibold text-emerald-700 shadow-sm backdrop-blur">

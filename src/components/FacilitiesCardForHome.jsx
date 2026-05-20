@@ -12,7 +12,7 @@ const FacilitiesCardForHome = async () => {
 
     const data = await res.json();
 
-    const cards = data?.slice(0, 6);
+    const cards = data?.slice(0, 8);
 
     const session = await auth.api.getSession({
         headers: await headers()
@@ -51,7 +51,7 @@ const FacilitiesCardForHome = async () => {
                 </div>
 
 
-                <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+                <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
 
                     {
                         cards?.map((facility) => (

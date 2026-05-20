@@ -1,24 +1,26 @@
-import React from "react";
+
 import { FiSearch } from "react-icons/fi";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import FetchingAllCard from "@/components/FetchingAllCard";
+import { FilterdDropDownMenu } from "@/components/FilteredDropDownMenu";
 
 const AllFacilities = async ({ searchParams }) => {
     const params = await searchParams;
 
     const search = params?.search || "";
+    const types = params?.types || "";
 
     const res = await fetch(
-        `http://localhost:5000/sports?search=${search}`,
-        {
-            cache: "no-store",
-        }
-    );
+    `http://localhost:5000/sports?search=${search}&types=${types}`,
+    {
+        cache: "no-store",
+    }
+);
 
     const cardsData = await res.json();
 
-    console.log(search);
+    console.log(cardsData);
 
     return (
 
@@ -53,7 +55,8 @@ const AllFacilities = async ({ searchParams }) => {
                             across Bangladesh.
                         </p>
 
-                        {/* SEARCH */}
+                        {/* SEARCH and filtered */}
+
                         <form
                             method="GET"
                             className="relative mt-6 max-w-xl"
@@ -77,7 +80,10 @@ const AllFacilities = async ({ searchParams }) => {
                             </button>
 
                         </form>
+
                     </div>
+
+                    <FilterdDropDownMenu />
 
                 </div>
 
