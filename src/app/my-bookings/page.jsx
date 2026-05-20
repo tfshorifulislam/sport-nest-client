@@ -29,100 +29,111 @@ const MyBookingsPage = async () => {
     const myBookingsList = await res.json();
 
     return (
-        <section className="min-h-screen bg-slate-50 py-14">
+        <section className="min-h-screen bg-slate-50 py-8 sm:py-10">
 
             <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
 
-                {/* HEADER */}
-                <div className="relative mb-10 overflow-hidden rounded-3xl border border-slate-200 bg-gradient-to-br from-emerald-600 via-emerald-500 to-teal-500 px-5 py-8 shadow-lg sm:px-8 sm:py-10 lg:px-12 lg:py-14">
+                {/* HERO */}
+                <div className="overflow-hidden rounded-3xl border border-slate-200 bg-white">
 
-                    {/* BLUR EFFECT */}
-                    <div className="absolute -right-20 -top-20 h-52 w-52 rounded-full bg-white/10 blur-3xl"></div>
+                    <div className="grid gap-8 lg:grid-cols-[1.4fr_.8fr]">
 
-                    <div className="absolute -bottom-24 left-0 h-60 w-60 rounded-full bg-black/10 blur-3xl"></div>
+                        {/* LEFT */}
+                        <div className="p-6 sm:p-8 lg:p-10">
 
-                    <div className="relative flex flex-col gap-10 lg:flex-row lg:items-center lg:justify-between">
-
-                        {/* LEFT CONTENT */}
-                        <div className="max-w-3xl">
-
-                            <span className="inline-flex items-center rounded-full border border-white/20 bg-white/10 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.25em] text-white backdrop-blur-md sm:text-xs">
+                            <span className="inline-flex rounded-full bg-emerald-50 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.2em] text-emerald-700">
                                 Booking Dashboard
                             </span>
 
-                            <h1 className="mt-5 text-3xl font-black tracking-tight text-white sm:text-5xl lg:text-6xl">
+                            <h1 className="mt-5 text-3xl font-black tracking-tight text-slate-900 sm:text-4xl">
                                 My Bookings
                             </h1>
 
-                            <p className="mt-4 max-w-2xl text-sm leading-7 text-white/80 sm:text-base sm:leading-8">
-                                Track your facility reservations, manage schedules,
-                                and monitor your activity with a clean booking experience.
+                            <p className="mt-4 max-w-2xl text-sm leading-7 text-slate-500 sm:text-base">
+                                Manage your reservations, monitor schedules,
+                                and track your sports facility activity.
                             </p>
 
                             {/* STATS */}
-                            <div className="mt-8 grid grid-cols-1 gap-4 sm:grid-cols-2">
+                            <div className="mt-8 grid grid-cols-2 gap-4">
 
-                                {/* ACTIVE */}
-                                <div className="rounded-2xl border border-white/15 bg-white/10 p-5 backdrop-blur-lg">
+                                <div className="rounded-2xl border border-slate-200 bg-slate-50 p-5">
 
-                                    <p className="text-xs font-semibold uppercase tracking-[0.2em] text-white/60">
-                                        Active Bookings
+                                    <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">
+                                        Total Bookings
                                     </p>
 
-                                    <h3 className="mt-3 text-3xl font-black text-white">
+                                    <h3 className="mt-3 text-3xl font-black text-slate-900">
                                         {myBookingsList?.length}
                                     </h3>
                                 </div>
 
-                                {/* STATUS */}
-                                <div className="rounded-2xl border border-white/15 bg-white/10 p-5 backdrop-blur-lg">
+                                <div className="rounded-2xl border border-slate-200 bg-slate-50 p-5">
 
-                                    <p className="text-xs font-semibold uppercase tracking-[0.2em] text-white/60">
-                                        Booking Status
+                                    <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">
+                                        Status
                                     </p>
 
-                                    <h3 className="mt-3 text-2xl font-black text-white">
-                                        Pending
-                                    </h3>
+                                    <div className="mt-4 inline-flex rounded-full bg-emerald-100 px-3 py-1 text-sm font-semibold text-emerald-700">
+                                        Active
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
 
-                        {/* RIGHT SUMMARY CARD */}
-                        <div className="w-full max-w-md rounded-3xl border border-white/15 bg-white/10 p-6 backdrop-blur-xl sm:p-8">
-
-                            <p className="text-xs font-semibold uppercase tracking-[0.25em] text-white/60">
-                                Total Reservations
-                            </p>
-
-                            <h2 className="mt-4 text-5xl font-black leading-none text-white sm:text-6xl">
-                                {myBookingsList?.length}
-                            </h2>
-
-                            {/* PROGRESS */}
-                            <div className="mt-6 h-2 overflow-hidden rounded-full bg-white/10">
-
-                                <div className="h-full w-[75%] rounded-full bg-white"></div>
                             </div>
 
-                            <p className="mt-4 text-sm leading-7 text-white/75">
-                                Overview of your current sports facility bookings and activity.
-                            </p>
                         </div>
+
+                        {/* RIGHT */}
+                        <div className="border-t border-slate-200 bg-slate-50 p-6 sm:p-8 lg:border-l lg:border-t-0">
+
+                            <div className="rounded-3xl bg-white p-6 shadow-sm border border-slate-100">
+
+                                <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400">
+                                    Reservation Summary
+                                </p>
+
+                                <h2 className="mt-5 text-5xl font-black text-slate-900">
+                                    {myBookingsList?.length}
+                                </h2>
+
+                                <p className="mt-4 text-sm leading-7 text-slate-500">
+                                    Total reservations you currently have in the platform.
+                                </p>
+
+                                {/* Progress */}
+                                <div className="mt-6 h-2 overflow-hidden rounded-full bg-slate-100">
+
+                                    <div
+                                        className="h-full rounded-full bg-emerald-500"
+                                        style={{
+                                            width: `${Math.min(
+                                                myBookingsList?.length * 20,
+                                                100
+                                            )}%`,
+                                        }}
+                                    />
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
                     </div>
+
                 </div>
 
                 {/* EMPTY */}
                 {
                     myBookingsList?.length === 0 && (
 
-                        <div className="flex min-h-[450px] flex-col items-center justify-center rounded-[40px] border border-dashed border-slate-300 bg-white px-6 text-center shadow-sm">
+                        <div className="mt-8 flex min-h-[350px] flex-col items-center justify-center rounded-3xl border border-dashed border-slate-300 bg-white px-6 text-center">
 
-                            <div className="flex h-24 w-24 items-center justify-center rounded-full bg-emerald-50">
+                            <div className="flex h-20 w-20 items-center justify-center rounded-full bg-emerald-50">
 
                                 <svg
                                     xmlns="http://www.w3.org/2000/svg"
-                                    className="h-10 w-10 text-emerald-600"
+                                    className="h-8 w-8 text-emerald-600"
                                     fill="none"
                                     viewBox="0 0 24 24"
                                     stroke="currentColor"
@@ -134,37 +145,50 @@ const MyBookingsPage = async () => {
                                         d="M8 7V3m8 4V3m-9 8h10m-11 9h12a2 2 0 002-2V7a2 2 0 00-2-2H6a2 2 0 00-2 2v11a2 2 0 002 2z"
                                     />
                                 </svg>
+
                             </div>
 
-                            <h2 className="mt-8 text-3xl font-black text-slate-900">
+                            <h2 className="mt-6 text-2xl font-black text-slate-900">
                                 No Bookings Yet
                             </h2>
 
-                            <p className="mt-4 max-w-md text-sm leading-7 text-slate-500">
-                                You haven’t reserved any sports facility yet.
-                                Start booking your favorite courts and turfs.
+                            <p className="mt-3 max-w-md text-sm leading-7 text-slate-500">
+                                You haven’t booked any sports facility yet.
                             </p>
+
                         </div>
                     )
                 }
 
                 {/* BOOKINGS */}
-                <div className="space-y-10">
+                <div className="mt-8 space-y-6">
 
                     {
                         myBookingsList?.map((bookingCard) => (
 
                             <div
                                 key={bookingCard?._id}
-                                className="group overflow-hidden rounded-[36px] border border-slate-200 bg-white shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-xl"
+                                className="
+                            overflow-hidden
+                            rounded-3xl
+                            border
+                            border-slate-200
+                            bg-white
+                            shadow-sm
+                            transition-all
+                            duration-300
+                            hover:shadow-lg
+                        "
                             >
-
                                 <MyBookingsPageCard bookingCard={bookingCard} />
                             </div>
                         ))
                     }
+
                 </div>
+
             </div>
+
         </section>
     );
 };

@@ -40,7 +40,7 @@ const AddFacilitiesPage = () => {
             location: formData.get("location"),
             pricePerHour: formData.get("pricePerHour"),
             capacity: formData.get("capacity"),
-            ownerEmail: formData.get("ownerEmail"),
+            ownerEmail: user?.email,
             description: formData.get("description"),
             availableTimeSlots,
         };
@@ -307,7 +307,7 @@ const AddFacilitiesPage = () => {
                                 name="email"
                                 type="email"
                                 className="w-full"
-                                defaultValue={user?.email}
+                                value={user?.email}
                             >
                                 <div className="w-full">
 
