@@ -7,6 +7,8 @@ import FacilitiesCardForHome from '@/components/FacilitiesCardForHome';
 import HappyCustomer from '@/components/HappyCustomer';
 import StatsSection from '@/components/State';
 import HowItWorks from '@/components/HowItWorks';
+import CallToAction from '@/components/CallToAction';
+import WhyChooseUs from '@/components/WhyChooseUs';
 
 const HomePage = () => {
   return (
@@ -15,8 +17,9 @@ const HomePage = () => {
       <StatsSection/>
       <FacilitiesCardForHome />
       <HowItWorks/>
+      <WhyChooseUs/>
       <HappyCustomer />
-      <HappyCustomer />
+      <CallToAction/>
       <FreequentlyAsk />
       <TopSportsComplexesCities />
     </div>
