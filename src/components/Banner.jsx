@@ -6,7 +6,7 @@ const Banner = () => {
         <section
             className="relative flex min-h-screen items-center justify-center overflow-hidden bg-cover bg-center"
             style={{
-                backgroundImage: "url('/banner5.jpg')",
+                backgroundImage: "url('/banner6.jpg')",
             }}
         >
 
