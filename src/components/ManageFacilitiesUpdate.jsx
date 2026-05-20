@@ -26,7 +26,7 @@ export function ManageFacilitieisUpdate({ facility }) {
         console.log(userToken)
 
         const res = await fetch(
-            `http://localhost:5000/bookings/${facility._id}`,
+            `${process.env.NEXT_PUBLIC_SERVER_URL}/bookings/${facility._id}`,
             {
                 method: "PATCH",
                 headers: {

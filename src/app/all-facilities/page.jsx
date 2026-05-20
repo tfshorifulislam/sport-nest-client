@@ -12,7 +12,7 @@ const AllFacilities = async ({ searchParams }) => {
     const types = params?.types || "";
 
     const res = await fetch(
-    `http://localhost:5000/sports?search=${search}&types=${types}`,
+    `${process.env.NEXT_PUBLIC_SERVER_URL}/sports?search=${search}&types=${types}`,
     {
         cache: "no-store",
     }

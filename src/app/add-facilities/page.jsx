@@ -48,7 +48,7 @@ const AddFacilitiesPage = () => {
         //client component get token.
         const { data: userToken } = await authClient.token()
 
-        const res = await fetch(`http://localhost:5000/sports`, {
+        const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/sports`, {
             method: 'POST',
             headers: {
                 'content-type': 'application/json',
