@@ -1,120 +1,146 @@
-import Link from 'next/link';
-import React from 'react';
+import Link from "next/link";
+import React from "react";
 
 const Banner = () => {
     return (
-
         <section
-            className="relative flex min-h-screen pb-10 py-10 items-center justify-center overflow-hidden bg-cover bg-center"
+            className="relative flex min-h-screen items-center justify-center overflow-hidden bg-cover bg-center"
             style={{
                 backgroundImage: "url('/banner4.jpg')",
             }}
         >
 
-            {/* OVERLAY */}
-            <div className="absolute inset-0 bg-black/70"></div>
+            {/* Single Overlay */}
+            <div className="absolute inset-0 bg-black/65" />
 
-            {/* LIGHT EFFECT */}
-            <div className="absolute top-1/2 h-[400px] w-[400px] -translate-y-1/2 rounded-full bg-emerald-500/20 blur-3xl"></div>
+            {/* Emerald Glow */}
+            <div className="absolute left-1/2 top-20 h-[420px] w-[420px] -translate-x-1/2 rounded-full bg-emerald-600/20 blur-[120px]" />
 
-            {/* CONTENT */}
-            <div className="relative z-10 mx-auto max-w-5xl px-6 text-center">
+            {/* Content */}
+            <div className="relative z-10 mx-auto flex w-full max-w-7xl flex-col items-center px-6 py-28 text-center">
 
-                {/* MINI TAG */}
-                <div className="inline-flex items-center rounded-full border border-white/10 bg-white/10 px-5 py-2 backdrop-blur-xl">
+                {/* Badge */}
+                <div className="inline-flex items-center gap-3 rounded-full border border-white/10 bg-white/10 px-5 py-2 backdrop-blur-2xl">
 
-                    <span className="text-[11px] font-semibold uppercase tracking-[0.3em] text-emerald-300">
+                    <div className="relative flex h-2.5 w-2.5">
 
-                        SportNest
+                        <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-500 opacity-75" />
+
+                        <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-emerald-500" />
+
+                    </div>
+
+                    <span className="text-[11px] font-semibold uppercase tracking-[0.35em] text-emerald-400">
+                        SportNest • Premium Sports Booking
                     </span>
+
                 </div>
 
-                {/* HEADING */}
-                <h1 className="mt-8 text-5xl font-black leading-[0.95] tracking-tight text-white sm:text-6xl lg:text-8xl">
+                {/* Heading */}
+                <h1 className="mt-8 max-w-5xl text-5xl font-black leading-[0.95] tracking-[-0.05em] text-white sm:text-6xl lg:text-[7rem]">
 
-                    Book Your
+                    Play Hard.
                     <br />
 
-                    <span className="text-emerald-400">
-                        Perfect Game
+                    <span className="bg-gradient-to-r from-emerald-400 via-emerald-500 to-emerald-600 bg-clip-text text-transparent">
+                        Book Smarter.
                     </span>
+
                 </h1>
 
-                {/* TEXT */}
-                <p className="mx-auto mt-7 max-w-2xl text-base leading-8 text-slate-300 sm:text-lg">
+                {/* Description */}
+                <p className="mt-8 max-w-2xl text-base leading-8 text-slate-300 sm:text-lg">
 
-                    Premium football turfs, cricket grounds,
-                    badminton courts, and indoor arenas —
-                    all in one seamless booking platform.
+                    Discover elite football turfs, cricket arenas,
+                    badminton courts, futsal grounds, and premium sports venues
+                    across Bangladesh — all in one seamless booking platform.
+
                 </p>
 
-                {/* BUTTONS */}
-                <div className="mt-8 flex items-center justify-center gap-3 sm:gap-4">
+                {/* CTA Buttons */}
+                <div className="mt-12 flex flex-wrap items-center justify-center gap-4">
 
                     <Link
                         href="/all-facilities"
-                        className="rounded-full bg-emerald-500 px-5 py-3 text-[12px] font-semibold text-white shadow-[0_10px_35px_rgba(16,185,129,0.35)] transition duration-300 hover:scale-105 hover:bg-emerald-600 sm:px-8 sm:text-sm"
+                        className="group relative overflow-hidden rounded-2xl bg-emerald-600 px-8 py-4 text-sm font-semibold text-white shadow-[0_20px_60px_-15px_rgba(5,150,105,0.55)] transition-all duration-300 hover:-translate-y-1 hover:bg-emerald-500"
                     >
-                        Explore Facilities
+
+                        <span className="relative z-10 flex items-center gap-2">
+
+                            Explore Facilities
+
+                            <span className="transition-transform duration-300 group-hover:translate-x-1">
+                                →
+                            </span>
+
+                        </span>
+
                     </Link>
 
                     <Link
                         href="/my-bookings"
-                        className="rounded-full border border-white/15 bg-white/10 px-5 py-3 text-[12px] font-semibold text-white backdrop-blur-md transition duration-300 hover:bg-white/20 sm:px-8 sm:text-sm"
+                        className="rounded-2xl border border-white/15 bg-white/5 px-8 py-4 text-sm font-semibold text-white backdrop-blur-xl transition-all duration-300 hover:border-white/25 hover:bg-white/10"
                     >
                         My Bookings
                     </Link>
 
                 </div>
 
-                {/* PREMIUM FLOATING STATS */}
-                <div className="mx-auto mt-10 grid max-w-5xl grid-cols-2 gap-4 md:mt-16 lg:grid-cols-4">
+                {/* Stats */}
+                <div className="mt-20 grid w-full max-w-5xl grid-cols-2 gap-5 lg:grid-cols-4">
 
-                    <div className="rounded-3xl border border-white/10 bg-white/5 p-5 text-center backdrop-blur-xl md:p-7">
+                    <div className="rounded-3xl border border-white/10 bg-white/[0.04] p-7 backdrop-blur-2xl transition-all duration-300 hover:-translate-y-1 hover:bg-white/[0.06]">
 
-                        <h3 className="text-3xl font-black text-white md:text-4xl">
+                        <h3 className="text-4xl font-black text-white">
                             500+
                         </h3>
 
-                        <p className="mt-2 text-xs text-slate-300 md:text-sm">
+                        <p className="mt-2 text-sm text-slate-400">
                             Premium Venues
                         </p>
+
                     </div>
 
-                    <div className="rounded-3xl border border-white/10 bg-white/5 p-5 text-center backdrop-blur-xl md:p-7">
+                    <div className="rounded-3xl border border-white/10 bg-white/[0.04] p-7 backdrop-blur-2xl transition-all duration-300 hover:-translate-y-1 hover:bg-white/[0.06]">
 
-                        <h3 className="text-3xl font-black text-white md:text-4xl">
+                        <h3 className="text-4xl font-black text-white">
                             24/7
                         </h3>
 
-                        <p className="mt-2 text-xs text-slate-300 md:text-sm">
+                        <p className="mt-2 text-sm text-slate-400">
                             Instant Booking
                         </p>
+
                     </div>
 
-                    <div className="rounded-3xl border border-white/10 bg-white/5 p-5 text-center backdrop-blur-xl md:p-7">
+                    <div className="rounded-3xl border border-white/10 bg-white/[0.04] p-7 backdrop-blur-2xl transition-all duration-300 hover:-translate-y-1 hover:bg-white/[0.06]">
 
-                        <h3 className="text-3xl font-black text-white md:text-4xl">
+                        <h3 className="text-4xl font-black text-white">
                             10K+
                         </h3>
 
-                        <p className="mt-2 text-xs text-slate-300 md:text-sm">
-                            Active Players
+                        <p className="mt-2 text-sm text-slate-400">
+                            Happy Players
                         </p>
+
                     </div>
 
-                    <div className="rounded-3xl border border-white/10 bg-white/5 p-5 text-center backdrop-blur-xl md:p-7">
+                    <div className="rounded-3xl border border-emerald-600/20 bg-emerald-600/10 p-7 backdrop-blur-2xl transition-all duration-300 hover:-translate-y-1">
 
-                        <h3 className="text-3xl font-black text-white md:text-4xl">
-                            99%
+                        <h3 className="text-4xl font-black text-emerald-400">
+                            4.98
                         </h3>
 
-                        <p className="mt-2 text-xs text-slate-300 md:text-sm">
-                            Happy Members
+                        <p className="mt-2 text-sm text-emerald-100/70">
+                            Average Rating
                         </p>
+
                     </div>
+
                 </div>
+
             </div>
+
         </section>
     );
 };
