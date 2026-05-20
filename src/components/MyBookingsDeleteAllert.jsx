@@ -9,7 +9,7 @@ import {
 import { MdDeleteForever } from "react-icons/md";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
-import { authClient } from "@/lib/auth-client";
+
 
 export function MyBookingsDeleteAllert({ bookingCard }) {
 

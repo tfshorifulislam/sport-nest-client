@@ -70,18 +70,45 @@ const ManagesFacilities = async () => {
                 </div>
 
                 {/* GRID */}
-                <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3">
+                {
+                    myBookingsListFacilities?.length > 0 ? (
 
-                    {
-                        myBookingsListFacilities.map((facility) => (
+                        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3">
 
-                            <ManageFacilitiesCards
-                                key={facility._id}
-                                facility={facility}
-                            />
-                        ))
-                    }
-                </div>
+                            {
+                                myBookingsListFacilities.map((facility) => (
+
+                                    <ManageFacilitiesCards
+                                        key={facility._id}
+                                        facility={facility}
+                                    />
+                                ))
+                            }
+
+                        </div>
+
+                    ) : (
+
+                        <div className="flex min-h-[400px] flex-col items-center justify-center rounded-[32px] border border-dashed border-slate-200 bg-white p-10 text-center shadow-sm">
+
+                            <div className="flex h-20 w-20 items-center justify-center rounded-full bg-emerald-50">
+
+                                <span className="text-4xl">🏟️</span>
+
+                            </div>
+
+                            <h2 className="mt-6 text-2xl font-bold text-slate-800">
+                                No Facilities Found
+                            </h2>
+
+                            <p className="mt-3 max-w-md text-sm leading-7 text-slate-500">
+                                You haven’t booked any sports facilities yet.
+                                Explore premium venues and make your first booking.
+                            </p>
+
+                        </div>
+                    )
+                }
             </div>
         </div>
     );
