@@ -1,15 +1,22 @@
-'use client'
+"use client";
 
-import { authClient } from '@/lib/auth-client';
-import Image from 'next/image';
-import Link from 'next/link';
-import React from 'react';
+import { authClient } from "@/lib/auth-client";
+import Image from "next/image";
+import Link from "next/link";
+import React, { useEffect, useState } from "react";
 
 const FetchingAllCard = ({ facility }) => {
 
-    const { data: session, isPending } = authClient.useSession();
+    const { data: session } = authClient.useSession();
 
-    if (isPending) {
+    const [mounted, setMounted] = useState(false);
+
+    useEffect(() => {
+        setMounted(true);
+    }, []);
+
+
+    if (!mounted) {
         return null;
     }
 
@@ -26,7 +33,7 @@ const FetchingAllCard = ({ facility }) => {
                     src={facility.image}
                     alt={facility.name}
                     fill
-                    className="object-cover transition duration-700 group-hover:scale-105"
+                    className="object-cover transition duration-700 hover:scale-105"
                 />
 
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/10 to-transparent" />
@@ -50,7 +57,7 @@ const FetchingAllCard = ({ facility }) => {
             {/* CONTENT */}
             <div className="flex flex-1 flex-col p-5">
 
-                <h2 className="line-clamp-1 text-xl font-semibold text-slate-800 transition group-hover:text-emerald-600">
+                <h2 className="line-clamp-1 text-xl font-semibold text-slate-800">
                     {facility.name}
                 </h2>
 
@@ -91,7 +98,11 @@ const FetchingAllCard = ({ facility }) => {
                 <div className="mt-auto pt-6">
 
                     <Link
-                        href={user ? `/all-facilities/${facility._id}` : '/login'}
+                        href={
+                            user
+                                ? `/all-facilities/${facility._id}`
+                                : "/login"
+                        }
                         className="flex h-12 w-full items-center justify-center rounded-2xl bg-emerald-600 text-sm font-medium text-white transition-all duration-200 hover:bg-emerald-700"
                     >
                         Book Now
