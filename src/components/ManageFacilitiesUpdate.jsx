@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import {
     Button,
     Input,
@@ -23,12 +22,16 @@ export function ManageFacilitieisUpdate({ facility }) {
         const UpdateData = Object.fromEntries(formData.entries());
 
 
+        const { data: userToken } = await authClient.token()
+        console.log(userToken)
+
         const res = await fetch(
             `http://localhost:5000/bookings/${facility._id}`,
             {
                 method: "PATCH",
                 headers: {
                     "content-type": "application/json",
+                    authorization: `Bearer ${userToken.token}`
                 },
                 body: JSON.stringify(UpdateData),
             }

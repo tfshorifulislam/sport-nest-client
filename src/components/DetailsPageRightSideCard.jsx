@@ -59,14 +59,14 @@ const DetailsPageRightSideCard = ({ data }) => {
         };
 
 
-        // const { data: userToken } = await authClient.token()
-        // console.log(userToken)
+        const { data: userToken } = await authClient.token()
+        console.log(userToken)
 
         const res = await fetch(`http://localhost:5000/bookings`, {
             method: 'POST',
             headers: {
                 'content-type': 'application/json',
-                // authorization: `Bearer ${userToken.token}`
+                authorization: `Bearer ${userToken.token}`
 
             },
             body: JSON.stringify(bookings)

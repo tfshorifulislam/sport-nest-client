@@ -1,7 +1,6 @@
 'use client'
 
 import React, { useState } from 'react';
-
 import {
     FieldError,
     Input,
@@ -46,13 +45,14 @@ const AddFacilitiesPage = () => {
             availableTimeSlots,
         };
 
-        // const { data: userToken } = await authClient.token()
+        //client component get token.
+        const { data: userToken } = await authClient.token()
 
         const res = await fetch(`http://localhost:5000/sports`, {
             method: 'POST',
             headers: {
                 'content-type': 'application/json',
-                // authorization: `Bearer ${userToken.token}`
+                authorization: `Bearer ${userToken.token}`
             },
             body: JSON.stringify(facilityData)
         })

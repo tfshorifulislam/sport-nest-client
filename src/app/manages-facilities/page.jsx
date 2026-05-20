@@ -10,16 +10,16 @@ const ManagesFacilities = async () => {
     });
     const user = session?.user;
 
-    // const userToken = await auth.api.getToken({
-    //     headers: await headers()
-    // });
+    const userToken = await auth.api.getToken({
+        headers: await headers()
+    });
 
     const res = await fetch(`http://localhost:5000/bookings/${user?.id}`,
         {
             method: "GET",
             headers: {
                 "content-type": "application/json",
-                // authorization: `Bearer ${userToken?.token}`
+                authorization: `Bearer ${userToken?.token}`
             },
             cache: 'no-store'
         });

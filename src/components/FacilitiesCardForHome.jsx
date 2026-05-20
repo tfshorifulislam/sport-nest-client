@@ -6,8 +6,15 @@ import React from 'react';
 
 const FacilitiesCardForHome = async () => {
 
+    const userToken = await auth.api.getToken({
+        headers: await headers()
+    });
+
     const res = await fetch('http://localhost:5000/sports', {
         cache: 'no-store',
+        headers: {
+                authorization: `Bearer ${userToken.token}`
+            },
     });
 
     const data = await res.json();

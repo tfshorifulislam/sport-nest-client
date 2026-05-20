@@ -16,7 +16,7 @@ const ManageFacilitiesDeleteAllert = ({ facility }) => {
 
     const onSubmit = async () => {
 
-        // const { data } = await authClient.token();
+        const { data } = await authClient.token();
 
         try {
 
@@ -25,7 +25,7 @@ const ManageFacilitiesDeleteAllert = ({ facility }) => {
                     method: "DELETE",
                     headers: {
                         "content-type": "application/json",
-                        // authorization: `Bearer ${data?.token}`
+                        authorization: `Bearer ${data?.token}`
                     }
                 }
             );

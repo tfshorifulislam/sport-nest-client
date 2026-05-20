@@ -1,6 +1,4 @@
 import React from 'react';
-
-
 import {
     FieldError,
     Input,
@@ -43,11 +41,15 @@ const BookingFacilitiesPage = () => {
             availableTimeSlots,
         };
 
+         const userToken = await auth.api.getToken({
+                headers: await headers()
+            });
 
         const res = await fetch(`http://localhost:5000/sports`, {
             method: 'POST',
             headers: {
-                'content-type': 'application/json'
+                'content-type': 'application/json',
+                 authorization: `Bearer ${userToken?.token}`
             },
             body: JSON.stringify(facilityData)
         })
