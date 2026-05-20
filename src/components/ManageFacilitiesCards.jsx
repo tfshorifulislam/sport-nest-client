@@ -104,7 +104,7 @@ const ManageFacilitiesCards = ({ facility }) => {
 
                     <ManageFacilitieisUpdate facility={facility} />
 
-                    <button className="flex-1 cursor-pointer rounded-2xl border border-red-200 bg-red-50 px-5 py-3 text-sm font-semibold text-red-500 transition hover:bg-red-500 hover:text-white">
+                    <button className="flex h-12 flex-1 cursor-pointer items-center justify-center rounded-2xl border border-red-200 bg-red-50 px-5 text-sm font-semibold text-red-500 transition-all duration-300 hover:border-red-500 hover:bg-red-500 hover:text-white">
 
                         Delete
                     </button>

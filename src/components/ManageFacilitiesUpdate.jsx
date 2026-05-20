@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import {
     Button,
     Input,
@@ -8,16 +9,44 @@ import {
     Surface,
     TextField,
 } from "@heroui/react";
+import { redirect } from "next/navigation";
+import toast from "react-hot-toast";
 
 export function ManageFacilitieisUpdate({ facility }) {
 
+    const { _id } = facility
+
+    const handleUpdate = async (e) => {
+        e.preventDefault();
+
+        const formData = new FormData(e.currentTarget);
+        const UpdateData = Object.fromEntries(formData.entries());
+
+
+        const res = await fetch(
+            `http://localhost:5000/bookings/${facility._id}`,
+            {
+                method: "PATCH",
+                headers: {
+                    "content-type": "application/json",
+                },
+                body: JSON.stringify(UpdateData),
+            }
+        );
+
+        const data = await res.json();
+
+        // console.log(data, 'data');
+        toast.success(`${facility.facilityName} is updateed`)
+        redirect('/manages-facilities')
+    };
+
+
+
     return (
-
         <Modal>
-
-            {/* OPEN BUTTON */}
             <Button
-                className="flex-1 cursor-pointer rounded-2xl bg-emerald-500 px-5 py-3 text-sm font-semibold text-white transition hover:bg-emerald-600"
+                className="flex h-12 flex-1 cursor-pointer items-center justify-center rounded-2xl border border-emerald-500 bg-emerald-500 px-5 text-sm font-semibold text-white transition-all duration-300 hover:border-emerald-600 hover:bg-emerald-600"
             >
                 Update
             </Button>
@@ -30,21 +59,17 @@ export function ManageFacilitieisUpdate({ facility }) {
 
                         <Modal.CloseTrigger />
 
-                        {/* HEADER */}
                         <Modal.Header className="border-b border-slate-100 px-7 py-6">
 
                             <Modal.Heading className="text-2xl font-bold text-slate-800">
-
                                 Update Booking
                             </Modal.Heading>
 
                             <p className="mt-2 text-sm text-slate-500">
-
                                 Edit your booking information.
                             </p>
                         </Modal.Header>
 
-                        {/* BODY */}
                         <Modal.Body className="p-7">
 
                             <Surface
@@ -52,120 +77,126 @@ export function ManageFacilitieisUpdate({ facility }) {
                                 className="rounded-3xl bg-slate-50 p-6"
                             >
 
-                                <form className="grid grid-cols-1 gap-5 md:grid-cols-2">
+                                <form
+                                    onSubmit={handleUpdate}
+                                    className="grid grid-cols-1 gap-5 md:grid-cols-2">
 
-                                    {/* Facility Name */}
-                                    <TextField>
-
+                                    <TextField
+                                        defaultValue={facility.facilityName}>
                                         <Label>Facility Name</Label>
 
                                         <Input
                                             name="facilityName"
-                                            value={facility.facilityName}
+
+
                                         />
                                     </TextField>
 
-                                    {/* Facility Type */}
-                                    <TextField>
-
+                                    <TextField
+                                        defaultValue={facility.facilityType}
+                                    >
                                         <Label>Facility Type</Label>
 
                                         <Input
                                             name="facilityType"
-                                            value={facility.facilityType}
+
+
                                         />
                                     </TextField>
 
-                                    {/* Price */}
-                                    <TextField>
-
+                                    <TextField
+                                        defaultValue={String(facility.pricePerHour)}>
                                         <Label>Price Per Hour</Label>
 
                                         <Input
                                             type="number"
                                             name="pricePerHour"
-                                            value={String(formData.pricePerHour)}
+
+
                                         />
                                     </TextField>
 
-                                    {/* Hours */}
                                     <TextField>
-
                                         <Label>Hours</Label>
 
                                         <Input
                                             type="number"
                                             name="hours"
-                                            value={String(facility.hours)}
+                                        // value={String(formData.hours)}
+
                                         />
                                     </TextField>
 
-                                    {/* Booking Date */}
-                                    <TextField>
-
+                                    <TextField
+                                        defaultValue={facility.bookingDate}
+                                    >
                                         <Label>Booking Date</Label>
 
                                         <Input
                                             type="date"
                                             name="bookingDate"
-                                            value={facility.bookingDate}
+
+
                                         />
                                     </TextField>
 
-                                    {/* Time Slot */}
-                                    <TextField>
-
+                                    <TextField
+                                        defaultValue={facility.timeSlot}>
                                         <Label>Time Slot</Label>
 
                                         <Input
                                             name="timeSlot"
-                                            value={formData.timeSlot}
+
+
                                         />
                                     </TextField>
 
-                                    {/* Location */}
-                                    <TextField className="md:col-span-2">
-
+                                    <TextField
+                                        defaultValue={facility.facilityLocation}
+                                        className="md:col-span-2">
                                         <Label>Facility Location</Label>
 
                                         <Input
                                             name="facilityLocation"
-                                            value={facility.facilityLocation}
+
+
                                         />
                                     </TextField>
 
-                                    {/* Image */}
-                                    <TextField className="md:col-span-2">
-
+                                    <TextField
+                                        defaultValue={facility.facilityImage}
+                                        className="md:col-span-2">
                                         <Label>Facility Image</Label>
 
                                         <Input
                                             name="facilityImage"
-                                            value={facility.facilityImage}
+
+
                                         />
                                     </TextField>
+
+                                    <div className="md:col-span-2 flex items-center justify-end gap-3 pt-4">
+
+                                        <Button
+                                            slot="close"
+                                            variant="secondary"
+                                            className="rounded-2xl"
+                                        >
+                                            Cancel
+                                        </Button>
+
+                                        <Button
+                                            type="submit"
+                                            slot="close"
+                                            className="rounded-2xl bg-emerald-500 px-6 text-white hover:bg-emerald-600"
+                                        >
+                                            Save Changes
+                                        </Button>
+                                    </div>
 
                                 </form>
                             </Surface>
                         </Modal.Body>
-
-                        {/* FOOTER */}
-                        <Modal.Footer className="border-t border-slate-100 px-7 py-5">
-
-                            <Button
-                                slot="close"
-                                variant="secondary"
-                                className="rounded-2xl"
-                            >
-                                Cancel
-                            </Button>
-
-                            <Button
-                                className="rounded-2xl bg-emerald-500 px-6 text-white hover:bg-emerald-600"
-                            >
-                                Save Changes
-                            </Button>
-                        </Modal.Footer>
                     </Modal.Dialog>
                 </Modal.Container>
             </Modal.Backdrop>
