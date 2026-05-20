@@ -1,5 +1,6 @@
 "use client";
 
+import { authClient } from "@/lib/auth-client";
 import {
     Button,
     Input,
@@ -119,7 +120,8 @@ export function ManageFacilitieisUpdate({ facility }) {
                                         />
                                     </TextField>
 
-                                    <TextField>
+                                    <TextField
+                                        defaultValue={facility.hours}>
                                         <Label>Hours</Label>
 
                                         <Input
