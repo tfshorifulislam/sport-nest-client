@@ -1,26 +1,26 @@
 "use client";
 
-import { authClient } from "@/lib/auth-client";
+// import { authClient } from "@/lib/auth-client";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 
 const FetchingAllCard = ({ facility }) => {
 
-    const { data: session } = authClient.useSession();
+    // const { data: session } = authClient.useSession();
 
-    const [mounted, setMounted] = useState(false);
+    // const [mounted, setMounted] = useState(false);
 
-    useEffect(() => {
-        setMounted(true);
-    }, []);
+    // useEffect(() => {
+    //     setMounted(true);
+    // }, []);
 
 
-    if (!mounted) {
-        return null;
-    }
+    // if (!mounted) {
+    //     return null;
+    // }
 
-    const user = session?.user;
+    // const user = session?.user;
 
     return (
 
@@ -102,11 +102,7 @@ const FetchingAllCard = ({ facility }) => {
                 <div className="mt-auto pt-6">
 
                     <Link
-                        href={
-                            user
-                                ? `/all-facilities/${facility._id}`
-                                : "/login"
-                        }
+                        href={`/all-facilities/${facility._id}`}
                         className="flex h-12 w-full items-center justify-center rounded-2xl bg-emerald-600 text-sm font-medium text-white transition-all duration-200 hover:bg-emerald-700"
                     >
                         Book Now

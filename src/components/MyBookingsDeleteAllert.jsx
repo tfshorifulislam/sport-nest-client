@@ -1,14 +1,11 @@
 "use client";
 
 import React from "react";
-import {
-    AlertDialog,
-    Button
-} from "@heroui/react";
-
+import { AlertDialog, Button } from "@heroui/react";
 import { MdDeleteForever } from "react-icons/md";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import { authClient } from "@/lib/auth-client";
 
 
 export function MyBookingsDeleteAllert({ bookingCard }) {
@@ -22,7 +19,6 @@ export function MyBookingsDeleteAllert({ bookingCard }) {
         const { data } = await authClient.token();
 
         try {
-
             const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/bookings/${_id}`,
                 {
                     method: "DELETE",
@@ -36,16 +32,12 @@ export function MyBookingsDeleteAllert({ bookingCard }) {
             const result = await res.json();
 
             if (result?.deletedCount > 0) {
-
                 toast.success("Booking cancelled successfully");
-
                 router.refresh();
             }
 
         } catch (error) {
-
             console.log(error);
-
             toast.error("Something went wrong");
         }
     };

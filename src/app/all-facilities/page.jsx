@@ -1,7 +1,4 @@
-
 import { FiSearch } from "react-icons/fi";
-import { auth } from "@/lib/auth";
-import { headers } from "next/headers";
 import FetchingAllCard from "@/components/FetchingAllCard";
 import { FilterdDropDownMenu } from "@/components/FilteredDropDownMenu";
 
@@ -11,16 +8,14 @@ const AllFacilities = async ({ searchParams }) => {
     const search = params?.search || "";
     const types = params?.types || "";
 
-    const res = await fetch(
-    `${process.env.NEXT_PUBLIC_SERVER_URL}/sports?search=${search}&types=${types}`,
-    {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/sports?search=${search}&types=${types}`, {
         cache: "no-store",
     }
-);
+    );
 
     const cardsData = await res.json();
 
-    console.log(cardsData);
+    // console.log(cardsData);
 
     return (
 
@@ -89,44 +84,19 @@ const AllFacilities = async ({ searchParams }) => {
 
                 {/* CARDS */}
                 {
-                    cardsData?.length > 0 ? (
+                    <div className="grid grid-cols-1 gap-7 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
 
-                        <div className="grid grid-cols-1 gap-7 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                        {
+                            cardsData.map((facility) => (
 
-                            {
-                                cardsData.map((facility) => (
+                                <FetchingAllCard
+                                    key={facility._id}
+                                    facility={facility}
+                                />
+                            ))
+                        }
 
-                                    <FetchingAllCard
-                                        key={facility._id}
-                                        facility={facility}
-                                    />
-                                ))
-                            }
-
-                        </div>
-
-                    ) : (
-
-                        <div className="flex min-h-[400px] flex-col items-center justify-center rounded-[32px] border border-dashed border-slate-200 bg-white p-10 text-center">
-
-                            <div className="flex h-20 w-20 items-center justify-center rounded-full bg-emerald-50">
-
-                                <span className="text-4xl">🏟️</span>
-
-                            </div>
-
-                            <h2 className="mt-6 text-2xl font-bold text-slate-800">
-                                No Facilities Found
-                            </h2>
-
-                            <p className="mt-3 max-w-md text-sm leading-7 text-slate-500">
-
-                                No sports facilities matched your search.
-                                Try searching with another keyword.
-                            </p>
-
-                        </div>
-                    )
+                    </div>
                 }
 
             </div>
