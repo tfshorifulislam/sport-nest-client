@@ -142,7 +142,7 @@ const LoginPage = () => {
                                 />
 
                                 <Description className="mt-1 text-xs text-slate-500">
-                                    Minimum 8 characters
+                                    Minimum 6 characters
                                 </Description>
 
                                 <FieldError className="mt-1 text-sm text-red-500" />
